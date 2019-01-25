@@ -1,0 +1,313 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>
+                <div class="logoBlock"><img src="/assets/images/logo.svg"></div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-content id="ion_content">
+        <div class="absBack"></div>
+    <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher> -->
+
+    <div *ngIf="USER && USER.userType == 'customer' ">
+        
+
+            <div *ngIf="SLIDER">
+                        <div class="owl-carousel owl-theme" id="ion_slides_top">
+                            <div class="sliderImg "><img src="{{ HOST + '/uploads/' + SLIDER.img1 }}" alt=""></div>
+                            <div class="sliderImg "><img src="{{ HOST + '/uploads/' + SLIDER.img2 }}" alt=""></div>
+                            <div class="sliderImg "><img src="{{ HOST + '/uploads/' + SLIDER.img3 }}" alt=""></div> 
+
+                          </div>
+                    </div>
+                    <ion-slides id="ion_slides_bottom" pager="false" [options]="catslideOpts" class="catSliderParent">
+           
+                            <div class="spinner" *ngIf="!categories.length">
+                                <ion-spinner name="dots" color="gold"></ion-spinner>
+                            </div>
+                
+                            <ion-slide class="catSlider" *ngFor="let item of categories" (click)="redirect_to_categorie(item.id)">
+                                <img class='rounded' src="/assets/images/category_icons/{{ item.image }}" alt="">
+                                <div class="slidText">{{ item[current_lang + 'Name'] }}</div>
+                            </ion-slide>
+                
+                        </ion-slides> 
+
+                    
+                    <!-- <div class="owl-carousel valod owl-theme catSlider"  >
+                            <div *ngFor="let item of categories" (click)="redirect_to_categorie(item.id)"> 
+                                <img class="rounded" src="/assets/images/category_icons/{{ item.image }}" alt="">
+                                <span class="slidText">{{ item[current_lang + 'Name'] }}</span>
+                            </div>
+                                
+                             
+                          </div> -->
+        
+        
+    
+
+            <!-- <input type="hidden" value="home" class="hiddenhome" />
+            <div class="swiper-container" >
+                    
+                    <div class="swiper-wrapper" >
+                        
+                        <div class="sliderImg swiper-slide "><img src="{{ HOST + '/uploads/' + SLIDER.img1 }}" alt=""></div>
+                        <div class="sliderImg swiper-slide"><img src="{{ HOST + '/uploads/' + SLIDER.img2 }}" alt=""></div>
+                        <div class=" sliderImg swiper-slide"><img src="{{ HOST + '/uploads/' + SLIDER.img3 }}" alt=""></div>          
+                    </div>
+                    <div class="swiper-pagination"></div>
+            </div> -->
+
+
+            
+            
+            
+            <!-- <div class="swiper-container" >
+                    <div class="spinner" *ngIf="!categories.length">
+                            <ion-spinner name="dots" color="gold"></ion-spinner>
+                        </div>
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide catSlider" *ngFor="let item of categories" (click)="redirect_to_categorie(item.id)">
+                                <img class="rounded" src="/assets/images/category_icons/{{ item.image }}" alt="">
+                                <div class="slidText">{{ item[current_lang + 'Name'] }}</div>
+                        </div>
+                        
+                       
+                    </div> -->
+                    
+                    
+            
+       
+               
+                
+
+        <!-- <ion-slides id="ion_slides_top" pager="true" (ionSlideDidChange)="slideChanged()"  [options]="slideOpts" class="slider_bullet" *ngIf="SLIDER">
+            
+            <ion-slide class="sliderImg ">
+                <img src="{{ HOST + '/uploads/' + SLIDER.img1 }}" alt="">
+            </ion-slide>
+            <ion-slide class="sliderImg ">
+                <img src="{{ HOST + '/uploads/' + SLIDER.img2 }}" alt="">
+            </ion-slide>
+            <ion-slide class="sliderImg ">
+                <img src="{{ HOST + '/uploads/' + SLIDER.img3 }}" alt="">
+            </ion-slide>
+        </ion-slides>-->
+
+        
+
+        <mat-tab-group (selectedTabChange)="calcHeight($event)" mat-stretch-tabs  class="WindowHeight" id="WindowHeight" [selectedIndex]="0">
+            <mat-tab class="labelColor" (onclick) = "calcHeight()" label="{{'all' | translate}}">
+
+                <!-- Before load  (ed) -->
+                <div class="spinner"  *ngIf="!announce_companies.length">
+                        <ion-spinner color="gold" name="dots"></ion-spinner>
+                </div>
+
+                
+                        
+                        
+                    
+                <!-- After load (ed) -->
+                <div *ngIf="announce_companies.length">
+                    <div class="productItem" *ngFor="let item of companies_by_sale_first(5); let i = index" (click)="redirect_to_company(item.id)">
+                        <span class="sale">{{ 'sale' | translate }} {{item.discount}} %</span>
+                        <span class="cashback" *ngIf = "item.cashBack">+ {{item.cashBack}}</span>
+                        <div class="productItemInner">
+                            <div class="imgBlock">
+                                <img class='rounded' src="{{ HOST + '/uploads/' + item.logo }}" alt="">
+                            </div>
+                            <div class="gago"><input type="hidden"  class="home" value="" /></div>
+                            <div class="textBlock">
+                                <div class="textTop">{{ item.armName }}</div>
+                                <div class="textButton">{{item.address.address}}</div>
+                            </div>
+
+                            <div class="row rateParent">
+                                <fieldset class="rate untouchable">
+                                    <input [checked]="item.rating == 5" id="rate-{{ i }}-star5" type="radio" name="rate-{{ i }}-star5" value="5" />
+                                    <label for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                    <input [checked]="item.rating == 4" id="rate-{{ i }}-star4" type="radio" name="rate-{{ i }}-star4" value="4" />
+                                    <label for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                    <input [checked]="item.rating == 3" id="rate-{{ i }}-star3" type="radio" name="rate-{{ i }}-star3" value="3" />
+                                    <label for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                    <input [checked]="item.rating == 2" id="rate-{{ i }}-star2" type="radio" name="rate-{{ i }}-star2" value="2" />
+                                    <label for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                    <input [checked]="item.rating == 1" id="rate-{{ i }}-star1" type="radio" name="rate-{{ i }}-star1" value="1" />
+                                    <label for="rate-{{ i }}-star1" title="Very bad">1</label>
+                                </fieldset>
+                                <span>({{item.comments_count}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-tab>
+
+            <mat-tab  (onclick) = "calcHeight()" label="{{ 'sale' | translate }}">
+
+                <!-- Before load  (ed) -->
+              
+                <div class="spinner" *ngIf="!announce_companies.length">
+                        <ion-spinner name="dots" color="gold"></ion-spinner>
+                </div>
+                
+
+                <!-- After load (ed) -->
+                <div *ngIf="announce_companies.length">
+                    <div class="productItem" *ngFor="let item of companies_by_sale(); let i = index" (click)="redirect_to_company(item.id)">
+                        <span class="sale">{{ 'sale' | translate }} {{item.discount}} %</span>
+                        <!-- <span class="distance" *ngIf="item.address.distance > 0">{{ 'distance' | translate }} {{item.address.distance}} {{'km' | translate }}</span> -->
+                        <div class="productItemInner">
+                            <div class="imgBlock">
+                                <img class='rounded' src="{{ HOST + '/uploads/' + item.logo }}" alt="">
+                            </div>
+                            <div class="textBlock">
+                                <div class="textTop">{{ item.armName }}</div>
+                                <div class="textButton">{{item.address.address}}</div>
+                            </div>
+
+                            <div class="row rateParent">
+                                <fieldset class="rate untouchable">
+                                    <input [checked]="item.rating == 5" id="rate-{{ i }}-star5-sale" type="radio" name="rate-{{ i }}" value="5" />
+                                    <label for="rate-{{ i }}-star5-sale" title="Excellent">5</label>
+
+                                    <input [checked]="item.rating == 4" id="rate-{{ i }}-star4-sale" type="radio" name="rate-{{ i }}" value="4" />
+                                    <label for="rate-{{ i }}-star4-sale" title="Good">4</label>
+
+                                    <input [checked]="item.rating == 3" id="rate-{{ i }}-star3-sale" type="radio" name="rate-{{ i }}" value="3" />
+                                    <label for="rate-{{ i }}-star3-sale" title="Satisfactory">3</label>
+
+                                    <input [checked]="item.rating == 2" id="rate-{{ i }}-star2-sale" type="radio" name="rate-{{ i }}" value="2" />
+                                    <label for="rate-{{ i }}-star2-sale" title="Bad">2</label>
+
+                                    <input [checked]="item.rating == 1" id="rate-{{ i }}-star1-sale" type="radio" name="rate-{{ i }}" value="1" />
+                                    <label for="rate-{{ i }}-star1-sale" title="Very bad">1</label>
+                                </fieldset>
+                                <span>({{item.comments_count}})</span>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-tab>
+        </mat-tab-group>
+
+       
+    </div>
+    
+    <div *ngIf="USER && USER.userType == 'partner' ">
+
+
+
+
+        <div *ngIf="!TRANSACTION_CARD" padding class="CompanyScanner">
+            <mat-card class="example-card ScannerShadow">
+                <img src="http://diegocavalca.com/wp-content/uploads/2015/05/qr-code-intelxdk1.jpg" alt="Photo of a Shiba Inu">
+
+                <p padding style="text-align: center;">
+                   {{ 'company scanner text' | translate }}
+                </p>
+
+                <div class="btnBlock settingsPage" padding>
+                    <div>
+                        <ion-button color="gold" (click)="scann()">{{ 'scan' | translate }}</ion-button>
+                    </div>
+                </div>
+
+            </mat-card>
+        </div>
+
+
+
+
+        <div *ngIf="TRANSACTION_CARD" padding class="CompanyPayTabs">
+            <mat-card class="example-card ScannerShadow">
+                <mat-tab-group mat-stretch-tabs>
+
+                    <mat-tab *ngIf="TRANSACTION_CARD.type == 'normal' ">
+                        <ng-template mat-tab-label>
+                                <mat-icon class="example-tab-icon-first"></mat-icon>
+                                <h5 class="martop">{{ 'pay' | translate }}</h5>
+                            </ng-template>
+
+                        <form class="example-form" padding>
+                            <h5>cashIn</h5>
+                            <mat-form-field class="example-full-width">
+                                <input type="number" matInput placeholder="{{ 'enter money' | translate }}" #transaction_amount>
+                            </mat-form-field>
+
+                            <div>
+                                <p class="fontP"> {{ 'cashin amount' | translate }}</p>
+                                <h2 class="text-center">{{ transaction_amount.value - (transaction_amount.value * USER.discount / 100) }} {{ 'dram' | translate }}</h2>
+                            </div>
+
+                            <div class="colorButton">
+                                <button mat-raised-button color="primary" (click)="cancel_transaction()">{{ 'cancel' | translate }}</button>
+                                <button mat-raised-button color="primary" (click)="transaction_IN_commit(transaction_amount.value)" [disabled]="!transaction_amount.value && !isNumber(transaction_amount.value)">{{'confirm'| translate}}</button>
+                            </div>
+                        </form>
+                    </mat-tab>
+                    
+                    <mat-tab *ngIf="USER.cashBack == 'CashBack'">
+                            <ng-template mat-tab-label>
+                                    <mat-icon class="example-tab-icon-second"></mat-icon>
+                                    <h5 class="martop">{{ 'use_bonus' | translate}}</h5>
+                                </ng-template>
+                        <form class="example-form" padding>
+                                <h5>cashOut</h5>
+                            <mat-form-field class="example-full-width">
+                                <input type="number" matInput placeholder="{{ 'enter_money' | translate }}" #cashout_amount>
+                            </mat-form-field>
+
+                            <div class="colorButton">
+                                <button mat-raised-button color="primary" (click)="cancel_transaction()">{{ 'cancel' | translate }}</button>
+                                <button mat-raised-button color="primary" (click)="transaction_OUT_commit(cashout_amount.value)" [disabled]="!cashout_amount.value && !isNumber(cashout_amount.value)">{{'confirm'| translate}}</button>
+                            </div>
+                        </form>
+                    </mat-tab>
+
+                </mat-tab-group>
+            </mat-card>
+        </div>
+
+    </div>
+
+    <div *ngIf="USER && USER.userType == 'agent' " >
+        <table mat-table [dataSource]="AGENT_INCOME" class="agentTable">
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> {{ 'company name' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="money">
+                <th mat-header-cell *matHeaderCellDef> {{ 'money' | translate }} </th>
+                <td mat-cell *matCellDef="let element"> {{element.money}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="AGENT_INCOME_COLUMNS"></tr>
+            <tr mat-row *matRowDef="let row; columns: AGENT_INCOME_COLUMNS;"></tr>
+        </table>
+
+        <p class="text-center">{{ 'general' | translate }} {{ AGENT_TOTAL_INCOME }} {{ 'dram' | translate }}</p>
+    </div>
+
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'terms' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+        <div class="absBack"></div>
+    <div class="contentCenter">
+        <div *ngIf="!DATA" class="spinner">
+                <ion-spinner name="dots" color="gold"></ion-spinner>
+        </div>
+
+        <div *ngIf="DATA">
+           <div class="content">
+               <p [innerHTML]="DATA.terms_text[CURRENT_LANG + 'Text']"></p>
+           </div>
+            
+        </div>
+    </div>
+</ion-content>

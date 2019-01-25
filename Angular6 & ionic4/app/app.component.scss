@@ -1,0 +1,33 @@
+::ng-deep .menuLogo {
+        width:40% !important;
+        margin: 15px auto 0 auto !important;
+        display:block !important;
+}
+
+::ng-deep mat-list-item.active{
+        background: #e0e0e0 !important;
+        position:relative;
+}
+
+::ng-deep mat-list-item.active::before{
+    content: '';
+    width: 2px;
+    height: 31px;
+    top: 8px;
+    left: 9px;
+    background: #851700;
+    display: block;
+   
+    position: absolute;
+    
+    
+}
+::ng-deep  body{
+        user-select: none !important;
+    }
+::ng-deep .logout_border .mat-list-item-content{
+        border-top: 1px solid #e0e0e0;
+}
+::ng-deep .a_hover.ion-color-dark{ 
+        --ion-color-base-rgb:none !important;
+}

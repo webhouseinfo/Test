@@ -1,0 +1,85 @@
+
+<ion-content>
+    
+    
+    
+    <div *ngIf="!selected_lang" class="langBlock">
+        <div class="introTop">
+
+            
+
+            <img src="/assets/images/globus.svg" width="" alt="">
+        </div>
+        <div class="introBottom">
+            <div>
+                <ion-button fill="round" expand="block" (click)="select_lang('arm')" color="gold" class="firstButton"><span>Հայերեն</span></ion-button>
+            </div>
+            <div>
+                <ion-button fill="round" expand="block" (click)="select_lang('rus')" color="gold" class="firstButton"><span>Русский</span></ion-button>
+            </div>
+            <div>
+                <ion-button fill="round" expand="block" (click)="select_lang('eng')" color="gold" class="firstButton"><span>English</span></ion-button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selected_lang" class="slider-wrapper">
+        <ion-slides #exercisesSlider pager="true">
+            <ion-slide direction="vertical">
+
+
+                <div style="height: 50px;"></div>
+                <div class="introTopSlider slidemg1">
+                    <img src="/assets/images/company.png" width="" alt="">
+                </div>
+                <div style="height: 50px;"></div>
+                <div class="introBottomSlider">
+                    <p>{{ 'intro row 1' | translate }}</p>
+                    <div style="height:100px;"></div>
+                </div>
+                <div class="slider-wrapper__item__footer">
+                    <span class="prevS" (click)="empty_lang()">{{ 'back' | translate }}</span>
+                    
+                    <span class="nextS" (click)="next_slide()"><ion-icon name="" src="assets/images/right-arrow.svg"></ion-icon></span>
+                </div>
+
+            </ion-slide>
+
+            <ion-slide>
+                <div style="height: 50px;"></div>
+                <div class="introTopSlider slidemg2">
+                    <img src="/assets/images/invite.svg" width="" alt="">
+                </div>
+                <div style="height: 50px;"></div>
+                <div class="introBottomSlider">
+                    <p>{{ 'intro row 2' | translate }}</p>
+
+                </div>
+                <div style="height:100px;"></div>
+                <div class="slider-wrapper__item__footer">
+                    <span class="prevS" (click)="prev_slide()">{{ 'back' | translate }}</span>
+                    <span class="nextS" (click)="next_slide()"><ion-icon name="" src="assets/images/right-arrow.svg"></ion-icon></span>
+                </div>
+            </ion-slide>
+
+            <ion-slide>
+
+                <div class="introTopSlider slidemg3">
+                    <img src="/assets/images/discount.svg " width="" alt="">
+                </div>
+
+                <div class="introBottomSlider">
+                    <p>{{ 'intro row 3' | translate }}</p>
+
+                </div>
+
+                <div class="item__footer_end">
+                    <ion-button fill="round" expand="block" href color="gold" (click)="to_login_page()"  >{{ 'login' | translate }}</ion-button>
+                </div>
+
+            </ion-slide>
+
+        </ion-slides>
+
+    </div>
+
+</ion-content>

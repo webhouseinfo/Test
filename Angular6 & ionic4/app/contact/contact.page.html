@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+          <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'contact' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+        <div class="absBack"></div>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'distance' | translate }}</ion-label>
+      <ion-label>+374 55 555 555</ion-label>
+    </ion-item>
+    
+     <ion-item class="highlight_red">
+      <ion-label>{{ 'email' | translate }}</ion-label>
+      <ion-label>example.com</ion-label>
+    </ion-item>
+    
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'address' | translate }}</ion-label>
+      <ion-label>Եղ. Չարենց 15/45</ion-label>
+    </ion-item>
+    <mat-list role="list">
+        <mat-list-item role="listitem" class="textContactArea">
+            <textarea name="msg" id="" cols="30" rows="10" #msg placeholder="{{ 'write message' | translate }}"></textarea>
+        </mat-list-item>
+       
+    </mat-list>
+     <div class="btnBlock settingsPage">
+        <div>
+            <ion-button color="gold" (click)="send(msg.value)">{{ 'send' | translate }}</ion-button>
+        </div>
+     </div>
+</ion-content>

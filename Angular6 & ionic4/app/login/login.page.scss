@@ -1,0 +1,260 @@
+$cartToolkitColor: #c28a82;
+
+
+.cart-tooltip {
+    position: relative;
+    display: inline-block;
+    
+    &__inside {
+      visibility: hidden;
+      max-width: 283px;
+      background-color: $cartToolkitColor;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      top: 150%;
+      left: -500%;
+      
+        display: flex; /* establish flex container */
+        flex-direction: row; /* make main axis horizontal (default value) */
+        justify-content: center; /* center items horizontally, in this case */
+        align-items: center; /* center items vertically, in this case */
+      
+      &:after {
+          content: "";
+          position: absolute;
+          bottom: 100%;
+          left: 92%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent $cartToolkitColor transparent;
+      }
+      &-box{
+          display: flex;
+          align-items: center;
+          justify-content: left;
+          text-align: left; /* only important for multiple lines */
+        
+          &--icon{
+            width: 20%;
+            //background-color: red;
+
+          }
+
+          &--text2{
+            width: 80%;
+            right: 0;
+            max-width: 199px;
+            font-size: 13px;	
+            font-weight: 600;
+            max-width: 199px;
+            //background-color: orange;
+            line-height: 20px;
+          }
+      }
+   }
+}
+
+.cart-tooltip:hover .cart-tooltip__inside {
+    visibility: visible;
+}
+.lower{
+    text-transform: lowercase !important;
+}
+
+
+
+
+.absBack{    position: absolute;
+    top: 0;
+    background: #FFF url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.15;
+    background-size: 100% 100%;
+    height: 100%;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+::ng-deep .toast-container{
+    background: red;
+}
+::ng-deep .wrap {
+    white-space: normal !important; }
+
+.example-full-width {
+  width: 100%;
+  margin:0;
+}
+.changePassdHeader{
+    position: absolute;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    margin:0 !important;
+}
+
+::ng-deep body{
+    // background: url("/src/assets/images/background.svg");
+    background-size: 96% 107%;
+    background-repeat: repeat;
+}
+
+// ::ng-deep .mat-form-field.mat-focused .mat-form-field-label{
+
+//     color:red !important;
+    
+// }
+
+
+// ::ng-deep .mat-input-underline {
+//     background-color: #FF0000;    /* replace this color with your accent color hex code */
+// }
+// ::ng-deep .mat-form-field-underline {
+//     background-color: rgb(177, 140, 81) !important;
+// }
+
+// ::ng-deep .mat-form-field-underline.mat-disabled {
+//     background-color: transparent !important;
+// }
+
+::ng-deep :host(.button-solid.ion-color) .button-native {
+     height:10px;
+}
+::ng-deep .backBtnClass{
+    position:absolute;
+}
+.twoContents{
+        display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+::ng-deep .matbtnhelp{
+    top: 0 !important;
+    position: absolute !important;
+    right: 0 !important;
+    box-shadow: none !important;
+}
+::ng-deep .matbtnhelp img{
+    width: 37%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+   
+
+::ng-deep.closeFooter{
+    display:none;
+}
+
+ion-title{
+    text-align:center;
+}
+ion-toolbar{
+        --background: white;
+        border-bottom: 2px solid #efefef;
+}
+.header-md::after{
+    background-image:none;
+}
+
+.loginContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+.logoImg{
+        margin-top: 10%;
+        margin-bottom: 10%;
+}
+
+.toolbar-background{
+    background-color: transparent;
+    border-bottom: 1px solid #F1F1F1;
+}
+.logoImg img{
+    width: 50%;
+    border: 0;
+    max-width: 430px;
+    display: block;
+    margin: auto;
+}
+.formParent{
+    width: 90%;
+    max-width: 500px;
+    position:relative;
+}
+.cart-tooltip{
+    background: url("../../assets/icon/help.svg");
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    position: relative;
+    position: absolute;
+    z-index: 99999999999999999;
+    right: 0px;
+    top: 16px;
+}
+.btnBlock{
+    margin-bottom:10px;
+}
+.changePas{
+    margin-top: 15px;
+    font-size: 14px;
+    color: #851700;
+}
+.loginBtn{
+   /* width: 100%;
+    background: rgb(134,21,9);
+    border: 0;
+    text-transform: uppercase;*/
+}
+ion-button {
+    --color: #fff;
+    --background:rgb(134,21,9);
+    --background-activated:#fff;
+    width:100%; 
+}
+.regBtn{
+    width: 100%;
+    border: 0;
+    background-color: none;
+    color: rgb(134,21,9);
+    text-transform: uppercase;
+}
+.footer{
+         position: relative;
+    
+    
+    width: 100%;
+    background: rgb(239,239,239);
+    text-align: center;
+    padding: 10px 0;
+  
+    
+}
+.footerText{
+    margin-top: 0;
+    font-size: 14px;
+    color: rgb(142,142,142);
+}
+.footerImg{
+    margin: 15px 0px 0px 0px;
+}
+.footerImg img{
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0px 2px 3px lightgray);
+    object-fit: cover;
+}

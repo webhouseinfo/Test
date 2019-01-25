@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-toggle>
+      <img src="/assets/images/menu-toggle.svg" class="imgabs">
+    </ion-menu-toggle>
+    <ion-title>{{ 'settings' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<div class="allbackground"></div>
+<ion-content padding>
+    <div class="absBack"></div>
+  <div *ngIf="!DATA" class="spinner">
+      <ion-spinner name="dots" color="gold"></ion-spinner>
+  </div>
+
+
+  <form *ngIf="DATA && USER.userType == 'customer'">
+    <ion-list>
+      <ion-item>
+        <ion-label class="colorLang">{{ 'change lang' | translate }}</ion-label>
+        <ion-select color="gold" (ionChange)="set_lang($event)" [(ngModel)]="DATA.lang" name='lang' okText="{{ 'confirm' | translate }}" cancelText="{{ 'cancel' | translate }}">
+          <ion-select-option color="gold" value="arm">Հայերեն</ion-select-option>
+          <ion-select-option value="rus">Русский</ion-select-option>
+          <ion-select-option value="eng">English</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <h6 class="textCenter">{{ 'personal data' | translate }}</h6>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'name' | translate }} {{ 'surname' | translate }}</ion-label>
+      <ion-input class="txtright" readonly [(ngModel)]="DATA.fullname" name="fullname"></ion-input>
+    </ion-item>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'telephone' | translate }}</ion-label>
+      <ion-input class="txtright" [(ngModel)]="DATA.phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-item class="item-interactive highlight_red">
+      <ion-label class="onlyDate1">{{ 'date of birth' | translate }}</ion-label>
+      <input matInput readonly color="gold" class="onlyDate" [matDatepicker]="picker" [(ngModel)]="DATA.birthday" name="birthday">
+    </ion-item>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'email' | translate }}</ion-label>
+      <ion-input readonly  [(ngModel)]="DATA.email" name="email" class="txtright"></ion-input>
+    </ion-item>
+    <div class="btnBlock settingsPage">
+      <div>
+        <ion-button color="gold" (click)="save()">{{ 'confirm' | translate }}</ion-button>
+      </div>
+    </div>
+  </form>
+
+  <form *ngIf="DATA && USER.userType == 'partner'">
+
+    <ion-list>
+      <ion-item>
+        <ion-label class="colorLang">{{ 'change lang' | translate }}</ion-label>
+
+        <ion-select (ionChange)="set_lang($event)" [(ngModel)]="DATA.lang" name='lang' okText="{{ 'confirm' | translate }}" cancelText="{{'cancel' | translate}}">
+          <ion-select-option value="arm">Հայերեն</ion-select-option>
+          <ion-select-option value="rus">Русский</ion-select-option>
+          <ion-select-option value="eng">English</ion-select-option>
+        </ion-select>
+
+      </ion-item>
+    </ion-list>
+    <h6 class="textCenter">{{ 'data.plural' | translate }}</h6>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'company name' | translate }}</ion-label>
+      <ion-input readonly class="txtright" [(ngModel)]="DATA.fullname" name="fullname"></ion-input>
+    </ion-item>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'telephone' | translate }}</ion-label>
+      <ion-input class="txtright" [(ngModel)]="DATA.phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-item class="highlight_red">
+      <ion-label>{{ 'email' | translate }}</ion-label>
+      <ion-input readonly [(ngModel)]="DATA.email" name="email" class="txtright"></ion-input>
+    </ion-item>
+    <ion-item class="highlight_red">
+      <ion-label >{{ 'contract number' | translate }}</ion-label>
+      <ion-input readonly class="txtright" [(ngModel)]="DATA.contractNumber" name="contractNumber"></ion-input>
+    </ion-item>
+    <div class="btnBlock settingsPage">
+      <div>
+        <ion-button color="gold" (click)="save()">{{ 'confirm' | translate }}</ion-button>
+      </div>
+    </div>
+
+  </form>
+
+  <form *ngIf="DATA && USER.userType == 'agent'">
+
+      <ion-list>
+          <ion-item>
+            <ion-label class="colorLang">{{ 'change lang' | translate }}</ion-label>
+            <ion-select color="gold" (ionChange)="set_lang($event)" [(ngModel)]="DATA.lang" name='lang' okText="{{ 'confirm' | translate }}" cancelText="{{ 'cancel' | translate }}">
+              <ion-select-option color="gold" value="arm">Հայերեն</ion-select-option>
+              <ion-select-option value="rus">Русский</ion-select-option>
+              <ion-select-option value="eng">English</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <h6 class="textCenter">{{ 'personal data' | translate }}</h6>
+        <ion-item class="highlight_red">
+          <ion-label >{{ 'name' | translate }} {{ 'surname' | translate }}</ion-label>
+          <ion-input readonly class="txtright" [(ngModel)]="DATA.fullname" name="fullname"></ion-input>
+        </ion-item>
+        <ion-item class="highlight_red">
+          <ion-label>{{ 'telephone' | translate }}</ion-label>
+          <ion-input class="txtright" [(ngModel)]="DATA.phone" name="phone"></ion-input>
+        </ion-item>
+        <ion-item class="item-interactive highlight_red">
+          <ion-label class="onlyDate1">{{ 'date of birth' | translate }}</ion-label>
+          <input matInput readonly class="onlyDate" [matDatepicker]="picker" [(ngModel)]="DATA.birthday" name="birthday">
+
+        </ion-item>
+        <ion-item class="highlight_red">
+          <ion-label>{{ 'email' | translate }}</ion-label>
+          <ion-input readonly [(ngModel)]="DATA.email" name="email" class="txtright"></ion-input>
+        </ion-item>
+        <ion-item class="highlight_red">
+            <ion-label>{{ 'contract number' | translate }}</ion-label>
+            <ion-input readonly class="txtright" [(ngModel)]="DATA.contractNumber" name="contractNumber"></ion-input>
+          </ion-item>
+        <div class="btnBlock settingsPage">
+          <div>
+            <ion-button color="gold" (click)="save()">{{ 'confirm' | translate }}</ion-button>
+          </div>
+        </div>
+  </form>
+
+
+</ion-content>

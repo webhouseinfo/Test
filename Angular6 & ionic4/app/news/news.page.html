@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+    <ion-menu-toggle>
+      <img src="/assets/images/menu-toggle.svg" class="imgabs">
+    </ion-menu-toggle>
+    <ion-title>{{ 'news.plural' | translate }}</ion-title></ion-toolbar>
+</ion-header>
+
+<ion-content >
+        <div class="absBack"></div>
+    <div *ngIf="!NEWS" class="spinner">
+            <ion-spinner name="dots" color="gold"></ion-spinner>
+    </div>
+
+
+    <div *ngIf="NEWS">
+
+        <mat-card class="example-card marginCont" *ngFor="let item of NEWS.list">
+            <img mat-card-image src="{{HOST}}/images/news/{{ item.image }}" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+                <p>
+                    {{ item[CURRENT_LANG + 'Text'] }}
+                </p>
+            </mat-card-content>
+            <mat-card-actions  align="end">
+                <span class="newsDate" >{{ item.date }}</span>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+</ion-content>

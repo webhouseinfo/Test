@@ -1,0 +1,168 @@
+<ion-header>
+    <ion-toolbar *ngIf="COMPANY && current_lang">
+            <ion-buttons slot="start" class="visible backBtnClass">
+                    <ion-back-button (click)="barev()"  text="" color="gold"></ion-back-button>
+                </ion-buttons>
+                <!-- <button (click)="barev()" >--</button> -->
+            <div class="headeLog">
+            <img width="50" src="{{HOST + '/uploads/' + COMPANY['logo'] }}" alt="">
+        </div>
+        <!-- <ion-menu-toggle>
+           
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+
+        </ion-menu-toggle> -->
+        <ion-title class="inner_title">{{ COMPANY[current_lang + "Name"] }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+        <div class="gago"><input type="hidden"  class="home" value="" /></div>
+        <div class="absBack"></div>
+    <!-- Before load  (ed) -->
+    <div *ngIf="!COMPANY" class="spinner">
+            <ion-spinner name="dots" color="gold"></ion-spinner>
+    </div>
+
+
+    <div *ngIf="COMPANY">
+       
+        <ion-slides pager="true" [options]="slideOpts" class="BouncePosition slider_bullet">
+            <ion-slide class="sliderImg" *ngFor="let item of COMPANY.images">
+                <div class="slideHeight"><img class="img_inner_slide" src="{{ HOST +  '/uploads/' + item }}" alt=""></div>
+            </ion-slide>
+        </ion-slides>
+
+        <div class="MatHeader" padding>
+            <mat-card class="example-card onlyForInner">
+                <mat-card-header>
+                    <mat-card-title>{{ 'sale' | translate }} {{COMPANY.discount}}%</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="">
+                    <p class="description">
+                        <!-- {{ COMPANY[current_lang + 'Description'] || '- - -' }} -->
+                    </p>
+                </mat-card-content>
+
+                <mat-card-content class="addressBlockParent">
+
+                    <!-- <div *ngIf="! my_pos.lat || ! my_pos.lng">
+                        <p>{{ 'location is disabled' | translate }}</p>
+                    </div> -->
+                    <!-- *ngIf="my_pos.lat && my_pos.lng" -->
+                    <section >
+                        <div *ngFor="let item of COMPANY.addressess">
+
+                            <div class="addressBlock">
+                                <div class="addressFirst">
+                                    <p>{{item.address}}</p>
+                                </div>
+                                <div class="addressThird" (click)="redirect_to_map(COMPANY.id, item.id)">
+                                    <ion-icon class="iconPad" src="/assets/images/map-icon.svg"></ion-icon>
+                                </div>
+                            </div>
+
+                            <hr class="middleLine">
+                        </div>
+                    </section>
+
+
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+
+        <div class="commmentBlock" padding>
+            <mat-card class="example-card onlyForInner">
+                <div class="comentTop">
+                    <div class="title">
+                        {{ 'please rate' | translate }}
+                    </div>
+                    <div class="rateParent">
+                        <fieldset class="rate">
+                            <input [(ngModel)]="COMMENT.stars" (click)="COMMENT_BOX_VISIBLE = true" id="rate-star5"
+                                type="radio" name="rate" value="5" />
+                            <label for="rate-star5" title="Excellent">5</label>
+
+                            <input [(ngModel)]="COMMENT.stars" (click)="COMMENT_BOX_VISIBLE = true" id="rate-star4"
+                                type="radio" name="rate" value="4" />
+                            <label for="rate-star4" title="Good">4</label>
+
+                            <input [(ngModel)]="COMMENT.stars" (click)="COMMENT_BOX_VISIBLE = true" id="rate-star3"
+                                type="radio" name="rate" value="3" />
+                            <label for="rate-star3" title="Satisfactory">3</label>
+
+                            <input [(ngModel)]="COMMENT.stars" (click)="COMMENT_BOX_VISIBLE = true" id="rate-star2"
+                                type="radio" name="rate" value="2" />
+                            <label for="rate-star2" title="Bad">2</label>
+
+                            <input [(ngModel)]="COMMENT.stars" (click)="COMMENT_BOX_VISIBLE = true" id="rate-star1"
+                                type="radio" name="rate" value="1" />
+                            <label for="rate-star1" title="Very bad">1</label>
+                        </fieldset>
+                        <span>({{COMPANY.comments_count}})</span>
+                    </div>
+                    <div *ngIf="COMMENT_BOX_VISIBLE">
+                        <div class="textareaDiv">
+                            <textarea [(ngModel)]="COMMENT.text" placeholder="{{ 'write comment' | translate }}"></textarea>
+                        </div>
+                        <div class="butonBlock">
+                            <ion-button shape="round" color="gold" (click)="disable_comment_form()">{{ 'cancel' |
+                                translate }}</ion-button>
+                            <ion-button shape="round" color="gold" (click)="submit_comment()">{{ 'confirm' | translate
+                                }}</ion-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="comentBottom">
+                      
+                    <div class="comentItem" *ngFor="let item of RESENT_COMMENTS; let i = index">
+                           
+                        <div class="topBlock blockRow">
+                            <div class="rateParent">
+                                <fieldset class="rate untouchable">
+
+                                    <input onclick="return false" [checked]="item.stars == 5" id="rate-{{ item.id }}-star5"
+                                        type="radio" name="rate-{{ i }}" value="5" />
+                                    <label for="rate-{{ item.id }}-star5" title="Excellent">5</label>
+
+                                    <input onclick="return false" [checked]="item.stars == 4" id="rate-{{ item.id }}-star4"
+                                        type="radio" name="rate-{{ i }}" value="4" />
+                                    <label for="rate-{{ item.id }}-star4" title="Good">4</label>
+
+                                    <input onclick="return false" [checked]="item.stars == 3" id="rate-{{ item.id }}-star3"
+                                        type="radio" name="rate-{{ i }}" value="3" />
+                                    <label for="rate-{{ item.id }}-star3" title="Satisfactory">3</label>
+
+                                    <input onclick="return false" [checked]="item.stars == 2" id="rate-{{ item.id }}-star2"
+                                        type="radio" name="rate-{{ i }}" value="2" />
+                                    <label for="rate-{{ item.id }}-star2" title="Bad">2</label>
+
+                                    <input onclick="return false" [checked]="item.stars == 1" id="rate-{{ item.id }}-star1"
+                                        type="radio" name="rate-{{ i }}" value="1" />
+                                    <label for="rate-{{ item.id }}-star1" title="Very bad">1</label>
+
+                                </fieldset>
+
+                            </div>
+                            <div class="date">{{item.date}}</div>
+                        </div>
+                        <div class="bottomBlock blockRow">
+                            <p> {{item.comment}}</p>
+                        </div>
+                   
+                    </div>
+                    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading' | translate }}">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+               
+
+                </div>
+            </mat-card>
+
+        </div>
+
+    </div>
+
+</ion-content>

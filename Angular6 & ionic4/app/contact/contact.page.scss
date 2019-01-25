@@ -1,0 +1,57 @@
+
+
+textarea{
+    border: 1px solid #dbdadf;
+    width: 100%;
+    height: 100px;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+}
+.mat-list .mat-list-item{
+    height: 100% !important;
+}
+::ng-deep .textContactArea .mat-list-item-content{
+    padding-right:0 !important;
+}
+.highlight_red ion-label:nth-child(2) {
+    text-align: right;
+}
+::ng-deep  .highlight_red{
+    --highlight-color-focused:rgb(134,21,9) !important;
+}
+::ng-deep .settingsPage{
+    text-align: center;
+    margin-top:20px;
+}
+.mat-list .mat-list-item .mat-list-item-content{
+   padding-right: 0 !important;
+}
+
+
+
+::ng-deep ion-title {
+      text-align: center;
+      color: rgb(134,21,9) !important;
+      font-size:16px;
+}
+.absBack{    
+    position: absolute;
+    top: 0;
+    background: url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.1;
+    height: 100%;
+    background-size: 90% 90%;
+  
+}
+::ng-deep .imgabs{
+    position: absolute;
+    width: 40px;
+    left: 15px;
+    z-index:99;
+}
+::ng-deep ion-toolbar{
+    --background:white !important;
+}

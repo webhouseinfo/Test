@@ -1,0 +1,536 @@
+<ion-header class="OnlyMyAccount" *ngIf="USER && USER.userType == 'customer' ">
+    <ion-toolbar class="inner_header_border" >
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{'my account' | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="USER && USER.userType == 'partner'" class="partnerShadow">
+    <ion-toolbar class="inner_header_border"> 
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'work' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content *ngIf="!USER ">
+    <div class="spinner">
+            <ion-spinner name="dots"  style="margin:auto;" color="gold"></ion-spinner>
+    </div>
+</ion-content>
+
+
+<!-- CUSTOMER -->
+<ion-content *ngIf="USER && USER.userType == 'customer' ">
+    <div class="absBack"></div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshing-spinner="bubbles"></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="page-wrapper" *ngIf="!COMMENT_FORM_VISIBLE">
+        <mat-tab-group *ngIf="CARD && CARD.type == 'normal'" mat-stretch-tabs class="tab2_label example-stretched-tabs mat-elevation-z4 myaccount">
+            <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon-first"></mat-icon>
+                            <h5 class="martop">{{ 'collected' | translate }}</h5>
+                       </ng-template>
+
+                <div *ngIf="CARD">
+                    <div class="cardHeader">
+                        <div class="cardHeader_1">{{ 'balance' | translate }}</div>
+                        <div class="cardHeader_1">{{CARD.unit}}</div>
+                    </div>
+                    <img src="/assets/images/card1.svg" class="cardMargin">
+                    <span class="numberCard">{{ CARD.cardNumber }}</span>
+                </div>
+                <div class="contentCenter">
+
+
+                    <ion-list>
+                        <ion-select color="gold" [(ngModel)]="SELECTED_IN_TYPE" okText="{{ 'confirm' | translate }}" cancelText="{{ 'cancel' | translate }}" class="widthSelected">
+                            <ion-select-option color="gold" value="company">{{ 'transactions' | translate }}</ion-select-option>
+                            <ion-select-option value="invite">{{ 'byfriends' | translate }}</ion-select-option>
+                        </ion-select>
+                    </ion-list>
+
+                    <div class="productItemParent">
+
+                        <div *ngIf="SELECTED_IN_TYPE == 'invite' ">
+
+                            <div *ngFor="let item of INACTIVE_MONEY">
+                                <div class="productItem DeactiveBlock" *ngIf="item.client_info">
+                                    <div class="topBlock blockRow">{{item.date}}</div>
+                                    <div class="middleBlock">
+                                        <div class="address blockRow">{{item.client_info.armName + ' ' + item.client_info.armSurname}}</div>
+                                        <div class="rateParent">{{item.client_info.email}}</div>
+                                    </div>
+                                    <div class="bottomBlock blockRow">
+                                        <span> {{ 'expected money' | translate }} {{ item.money }} {{'point' | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <ion-infinite-scroll (ionInfinite)="load_customer_transactions($event)">
+                            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading' | translate }}">
+
+                               
+                                    <!-- <div *ngIf="INS === null">
+                                            <p class="textPcenter">{{ 'notransactions' | translate }}</p>
+                                        </div> -->
+                                <!-- <div *ngIf="INS === null" class="spinner">
+                                        <ion-spinner name="dots" style="margin:auto;" color="gold"></ion-spinner>
+                                   
+                                </div> -->
+
+                                     <div *ngIf="INS && INS.length == 0 || INS === null">
+                                        <p class="textPcenter">{{ 'notransactions' | translate }}</p>
+                                    </div>
+
+                                <div *ngFor="let item of INS; let i = index">
+
+                                    <div class="productItem " *ngIf="(SELECTED_IN_TYPE == 'invite' && item.invite_id == USER.id) || (SELECTED_IN_TYPE == 'company' && item.invite_id != USER.id)">
+                                        <div class="topBlock blockRow">{{ item.date }}</div>
+                                        <div class="middleBlock">
+                                            <div class="address blockRow" *ngIf="SELECTED_IN_TYPE != 'invite'">{{ item.address }}</div>
+
+                                            <div class="rateParent" *ngIf="SELECTED_IN_TYPE != 'invite'">
+                                                <fieldset class="rate" [ngClass]="{ 'untouchable' : item.comment }">
+                                                    <input [checked]="item.comment && item.comment.stars == 5"  id="rate-{{ i }}-star5" type="radio"
+                                                        name="rate-{{ i }}" value="5" />
+                                                    <label (click)="show_comment_form(5, item)" for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                                    <input [checked]="item.comment && item.comment.stars == 4"  id="rate-{{ i }}-star4" type="radio"
+                                                        name="rate-{{ i }}" value="4" />
+                                                    <label (click)="show_comment_form(4, item)" for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                                    <input [checked]="item.comment && item.comment.stars == 3"  id="rate-{{ i }}-star3" type="radio"
+                                                        name="rate-{{ i }}" value="3" />
+                                                    <label (click)="show_comment_form(3, item)" for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                                    <input [checked]="item.comment && item.comment.stars == 2"  id="rate-{{ i }}-star2" type="radio"
+                                                        name="rate-{{ i }}" value="2" />
+                                                    <label (click)="show_comment_form(2, item)" for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                                    <input [checked]="item.comment && item.comment.stars == 1"  id="rate-{{ i }}-star1" type="radio"
+                                                        name="rate-{{ i }}" value="1" />
+                                                    <label (click)="show_comment_form(1, item)" for="rate-{{ i }}-star1" title="Very bad">1</label>
+                                                </fieldset>
+                                            </div>
+
+                                            <div class="rateParent" *ngIf="SELECTED_IN_TYPE == 'invite'">
+                                                <p>{{ item.client_info }}</p>
+                                                <p>{{ item.client_info_email }}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="bottomBlock blockRow twoSpan">
+                                            <span *ngIf="SELECTED_IN_TYPE != 'invite'">{{ 'expense' | translate }} {{ item.money }} {{ 'dram' | translate }} </span>
+                                            <span *ngIf="SELECTED_IN_TYPE != 'invite'">
+                                                <hr class="middlehr"> </span>
+                                            <span>{{ 'collecting' | translate }} {{ SELECTED_IN_TYPE == 'invite' ? item.invite_points : item.client_points
+                                                }} {{ 'point' | translate }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ion-infinite-scroll-content>
+                        </ion-infinite-scroll>
+
+                    </div>
+                </div>
+
+
+            </mat-tab>
+
+            <mat-tab>
+             
+                            <ng-template mat-tab-label>
+                                 <mat-icon class="example-tab-icon-second"></mat-icon>
+                                 <h5 class="martop">{{ 'paid' | translate }}</h5>
+                            </ng-template>
+            
+
+                      
+               
+                <!-- <div *ngIf="OUTS === null" class="spinner">
+                        <ion-spinner name="dots"  style="margin:auto;display:block;" color="gold"></ion-spinner>
+                   
+                </div> -->
+
+                <div *ngIf="OUTS && OUTS.length == 0 || OUTS === null">
+                    <p class="textPcenter">{{ 'notransactions' | translate }}</p>
+                </div>
+
+                <ion-infinite-scroll (ionInfinite)="load_customer_transactions($event)">
+                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading' | translate }}">
+
+                        <div *ngIf="OUTS && OUTS.length > 0">
+
+                            <div class="contentCenter" *ngFor="let item of OUTS; let i = index">
+                                <div class="productItem paddingOnly">
+                                    <div class="topBlock blockRow">{{ item.date }}</div>
+                                    <div class="middleBlock">
+                                        <div class="address blockRow">{{ item.address }}</div>
+                                        <div class="rateParent">
+                                            <fieldset class="rate" [ngClass]="{ 'untouchable' : item.comment }">
+                                                <input [checked]="item.comment && item.comment.stars == 5"  id="rate-{{ i }}-star5" type="radio"
+                                                    name="rate-{{ i }}" value="5" />
+                                                <label (click)="show_comment_form(5, item)" for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                                <input [checked]="item.comment && item.comment.stars == 4"  id="rate-{{ i }}-star4" type="radio"
+                                                    name="rate-{{ i }}" value="4" />
+                                                <label (click)="show_comment_form(4, item)" for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                                <input [checked]="item.comment && item.comment.stars == 3"  id="rate-{{ i }}-star3" type="radio"
+                                                    name="rate-{{ i }}" value="3" />
+                                                <label (click)="show_comment_form(3, item)" for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                                <input [checked]="item.comment && item.comment.stars == 2"  id="rate-{{ i }}-star2" type="radio"
+                                                    name="rate-{{ i }}" value="2" />
+                                                <label (click)="show_comment_form(2, item)" for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                                <input [checked]="item.comment && item.comment.stars == 1"  id="rate-{{ i }}-star1" type="radio"
+                                                    name="rate-{{ i }}" value="1" />
+                                                <label (click)="show_comment_form(1, item)" for="rate-{{ i }}-star1" title="Very bad">1</label>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="bottomBlock blockRow">
+                                        <span>{{ 'expense' | translate }} {{ item.money }} {{ 'point' | translate }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+
+            </mat-tab>
+        </mat-tab-group>
+
+        <div *ngIf="CARD && CARD.type == 'gift'">
+            <div *ngIf="CARD">
+                <div class="cardHeader">
+                    <div class="cardHeader_1">{{ 'ballance' | translate }}</div>
+                    <div class="cardHeader_1">{{CARD.unit}}</div>
+                </div>
+                <img src="/assets/images/card1.svg" class="cardMargin">
+                <span class="numberCard">{{ CARD.cardNumber }}</span>
+            </div>
+
+            <ion-infinite-scroll (ionInfinite)="load_customer_transactions($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading' | translate }}">
+
+                    <div *ngFor="let item of OUTS; let i = index">
+
+                        <div class="productItem " *ngIf="(SELECTED_IN_TYPE == 'invite' && item.invite_id == USER.id) || (SELECTED_IN_TYPE == 'company' && item.invite_id != USER.id)">
+                            <div class="topBlock blockRow">{{ item.date }}</div>
+                            <div class="middleBlock">
+                                <div class="address blockRow">{{ item.address }}</div>
+
+                                <div class="rateParent" *ngIf="SELECTED_IN_TYPE != 'invite'">
+                                    <fieldset class="rate" [ngClass]="{ 'untouchable' : item.comment }">
+                                        <input [checked]="item.comment && item.comment.stars == 5" id="rate-{{ i }}-star5" type="radio"
+                                            name="rate-{{ i }}" value="5" />
+                                        <label (click)="show_comment_form(5, item)" for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                        <input [checked]="item.comment && item.comment.stars == 4" id="rate-{{ i }}-star4" type="radio"
+                                            name="rate-{{ i }}" value="4" />
+                                        <label (click)="show_comment_form(4, item)" for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                        <input [checked]="item.comment && item.comment.stars == 3" id="rate-{{ i }}-star3" type="radio"
+                                            name="rate-{{ i }}" value="3" />
+                                        <label (click)="show_comment_form(3, item)" for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                        <input [checked]="item.comment && item.comment.stars == 2" id="rate-{{ i }}-star2" type="radio"
+                                            name="rate-{{ i }}" value="2" />
+                                        <label (click)="show_comment_form(2, item)" for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                        <input [checked]="item.comment && item.comment.stars == 1" id="rate-{{ i }}-star1" type="radio"
+                                            name="rate-{{ i }}" value="1" />
+                                        <label (click)="show_comment_form(1, item)" for="rate-{{ i }}-star1" title="Very bad">1</label>
+                                    </fieldset>
+                                </div>
+
+                                <div class="rateParent" *ngIf="SELECTED_IN_TYPE == 'invite' && item.invite_id == USER.id && item.client_info">
+                                    <p>{{ item.client_info.armName + ' ' + item.client_info.armSurname }}</p>
+                                </div>
+
+                            </div>
+
+                            <div class="bottomBlock blockRow twoSpan">
+                                <span *ngIf="SELECTED_IN_TYPE != 'invite'">{{ 'expense' | translate }} {{ item.money }} t{{ 'dram' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
+
+        </div>
+
+    </div>
+
+    <div class="page-wrapper" *ngIf="COMMENT_FORM_VISIBLE" padding>
+        <div class="comentTop">
+            <div class="rateParent untouchable">
+                <fieldset class="rate">
+                    <input [checked]="COMMENT.stars == 5" id="rate-star5" type="radio" name="rate" value="5" />
+                    <label for="rate-star5" title="Excellent">5</label>
+
+                    <input [checked]="COMMENT.stars == 4" id="rate-star4" type="radio" name="rate" value="4" />
+                    <label for="rate-star4" title="Good">4</label>
+
+                    <input [checked]="COMMENT.stars == 3" id="rate-star3" type="radio" name="rate" value="3" />
+                    <label for="rate-star3" title="Satisfactory">3</label>
+
+                    <input [checked]="COMMENT.stars == 2" id="rate-star2" type="radio" name="rate" value="2" />
+                    <label for="rate-star2" title="Bad">2</label>
+
+                    <input [checked]="COMMENT.stars == 1" id="rate-star1" type="radio" name="rate" value="1" />
+                    <label for="rate-star1" title="Very bad">1</label>
+                </fieldset>
+            </div>
+            <div>
+                
+                <div class="textareaDiv">
+                    <textarea [(ngModel)]="COMMENT.text" placeholder="{{ 'write comment' | translate }}"></textarea>
+                </div>
+                <div class="butonBlock">
+                    <ion-button shape="round"  color="gold" (click)="hide_comment_form()">{{ 'cancel' | translate }}</ion-button>
+                    <ion-button shape="round"  color="gold" (click)="submit_comment()">{{ 'confirm' | translate }}</ion-button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</ion-content>
+
+<!--Partner Password AND SHRJANARUWTYUN-->
+
+<ion-content *ngIf="USER && USER.userType == 'partner' ">
+    <div class="absBack"></div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshing-spinner="bubbles"></ion-refresher-content>
+    </ion-refresher>
+
+    <div padding class="CompanyScanner" *ngIf="!access_gained">
+        <mat-card class="example-card ScannerShadow">
+            <form class="example-form" padding>
+                <mat-form-field class="example-full-width">
+                    <input type="number" #partner_transaction_pwd matInput placeholder="{{ 'enter password' | translate }}">
+                </mat-form-field>
+                <div class="colorButton">
+                    <button [disabled]="!partner_transaction_pwd.value" mat-raised-button color="primary" (click)="open_transaction_attempt(partner_transaction_pwd.value)">{{ 'login' | translate }}</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+
+    <!--SHRJANARUWTYUN Block is display : block-->
+
+    <mat-tab-group *ngIf="access_gained" mat-stretch-tabs class="partnerTabs only_cash_out example-stretched-tabs mat-elevation-z4 myaccount  padAccount">
+        <mat-tab >
+
+                <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon-partner-first"></mat-icon>
+                   </ng-template>
+
+
+            <div class="" style="position:relative">
+                <p class="searchHeader">{{ 'search' | translate }}</p>
+                <mat-form-field padding class="dateInputPad firstMat">
+                    <input matInput #start (dateChange)="filter_by_date(start.value, end.value)" readonly [matDatepicker]="picker1" placeholder="{{ 'start' | translate }}">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field padding class="dateInputPad secondMat">
+                    <input matInput #end (dateChange)="filter_by_date(start.value, end.value)" readonly [matDatepicker]="picker2" placeholder="{{ 'end' | translate }}">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <div class="twoBlock" padding>
+                    <ion-button color="gold" (click)="download_excel()">
+                        <ion-icon class="iconPad" src="/assets/images/excel-icon.svg"></ion-icon>{{'download' | translate}}
+                    </ion-button>
+                    <p>{{ 'padi' | translate }} <span class=""></span></p>
+                </div>
+            </div>
+
+            
+            <div padding>
+                <div class="example-container mat-elevation-z8">
+                    
+                    <!-- <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        <ion-infinite-scroll (ionInfinite)="load_partner_transactions($event)"> -->
+                    <table mat-table [dataSource]="displayedSource">
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="date">
+                                    <th mat-header-cell *matHeaderCellDef> {{ 'date' | translate }} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.date }} </td>
+                                </ng-container>
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="card_number">
+                                    <th mat-header-cell *matHeaderCellDef> {{'card number' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.card_number}} </td>
+                                </ng-container>
+
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="price">
+                                    <th mat-header-cell *matHeaderCellDef> {{'product price' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.price}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="sale">
+                                    <th mat-header-cell *matHeaderCellDef> {{'sale' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.sale}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="paid_money">
+                                    <th mat-header-cell *matHeaderCellDef> {{'paid money' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.paid_money}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="paid_points">
+                                    <th mat-header-cell *matHeaderCellDef> {{'paid points' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.paid_points}} </td>
+                                </ng-container>
+
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="all_points">
+                                    <th mat-header-cell *matHeaderCellDef> {{'paid by contract' | translate}} </th>
+                                    <td mat-cell *matCellDef="let element" [ngClass]="{red: (+element.paid_admin > 0 && element.type == 'in'), green: (+element.paid_partner > 0 && element.type == 'out')}">
+                                    {{element.all_points}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                        <!-- </ion-infinite-scroll>
+                    </ion-infinite-scroll-content> -->
+                </div>
+            </div>
+
+
+        </mat-tab>
+
+
+
+    <mat-tab>
+            <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon-partner-second"></mat-icon>
+                    
+               </ng-template>
+        <div class="commmentBlock" padding>
+                <mat-card class="example-card onlyForInner">
+                        <div class="comentTop">
+                            <div class="rateParent">
+                                <fieldset class="rate untouchable">
+
+                                    <input onclick="return false" [checked]="USER.rating == 5 " id="rate-{{ i }}-star5" type="radio" value="5" />
+                                    <label for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                    <input onclick="return false" [checked]="USER.rating == 4 " id="rate-{{ i }}-star4" type="radio" value="4" />
+                                    <label for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                    <input onclick="return false" [checked]="USER.rating == 3 " id="rate-{{ i }}-star3" type="radio" value="3" />
+                                    <label for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                    <input onclick="return false" [checked]="USER.rating == 2 " id="rate-{{ i }}-star2" type="radio" value="2" />
+                                    <label for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                    <input onclick="return false" [checked]="USER.rating == 1 " id="rate-{{ i }}-star1" type="radio" value="1" />
+                                    <label for="rate-{{ i }}-star1" title="Very bad">1</label>
+
+                                </fieldset>
+                                <span>({{USER.comments_count}})</span>
+                            </div>
+                        </div>
+
+            
+            <!-- <div class="comentBottom" *ngIf="partner_comments.length"> -->
+            <div class="comentBottom">
+                
+                    <ion-infinite-scroll (ionInfinite)="load_partner_comments($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'loading' | translate }}">
+
+                            <div class="comentItem" *ngFor="let item of partner_comments; let i = index">
+                                <div class="topBlock1 topBlock blockRow">
+                                    <div class="rateParent">
+
+                                        <fieldset class="rate untouchable">
+
+                                            <input onclick="return false" [checked]="item.stars == 5" id="rate-{{ i }}-star5" type="radio" name="rate-{{ i }}" value="5"
+                                            />
+                                            <label for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                                            <input onclick="return false" [checked]="item.stars == 4" id="rate-{{ i }}-star4" type="radio" name="rate-{{ i }}" value="4"
+                                            />
+                                            <label for="rate-{{ i }}-star4" title="Good">4</label>
+
+                                            <input onclick="return false" [checked]="item.stars == 3" id="rate-{{ i }}-star3" type="radio" name="rate-{{ i }}" value="3"
+                                            />
+                                            <label for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                                            <input onclick="return false" [checked]="item.stars == 2" id="rate-{{ i }}-star2" type="radio" name="rate-{{ i }}" value="2"
+                                            />
+                                            <label for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                                            <input onclick="return false" [checked]="item.stars == 1" id="rate-{{ i }}-star1" type="radio" name="rate-{{ i }}" value="1"
+                                            />
+                                            <label for="rate-{{ i }}-star1" title="Very bad">1</label>
+
+                                        </fieldset>
+
+                                    </div>
+                                    <div class="date">{{item.date}}</div>
+                                </div>
+                                <div class="bottomBlock blockRow ">
+                                    <p class="text-left-p"> {{item.comment}}</p>
+                                </div>
+                            </div>
+
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                
+            </div>
+            </mat-card>
+        </div>
+        
+
+            <!-- </div> -->
+
+        </mat-tab>
+    </mat-tab-group>
+
+
+
+
+
+</ion-content>

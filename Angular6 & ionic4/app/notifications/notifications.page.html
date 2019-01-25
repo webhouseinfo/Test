@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'notifications' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+        <div class="absBack"></div>
+    <div *ngIf="NOTIFICATIONS === null" class="spinner">
+            <ion-spinner name="dots" color="gold"></ion-spinner>
+    </div>
+
+    <div *ngIf="NOTIFICATIONS && !NOTIFICATIONS.length">
+        <p class="settingsPage">{{ 'notifitext' | translate }}</p>
+    </div>
+
+    <div *ngIf="NOTIFICATIONS && NOTIFICATIONS.length">
+        <div *ngFor="let item of NOTIFICATIONS" class="card card-cascade narrower">
+            <div class="view view-cascade overlay" [ngClass]="{'noImage' : ! item.image}">
+                <img class="card-img-top"  src="{{ HOST }}/images/notifications/{{ item.image }}" alt="Card image cap">
+
+            </div>
+            <div class="card-body card-body-cascade">
+                
+                <h4 class="font-weight-bold card-title">{{ item[CURRENT_LANG + 'Title'] }}</h4>
+                <p class="card-text">{{ item[CURRENT_LANG + 'Text'] }}</p>
+                <h5 class="pink-text pb-2 pt-1">{{ item.notify_date }} </h5>
+                <div class="btnBlock settingsPage" *ngIf="item.buttons && item.buttons.trim().length">
+                    <div class="twoButton okandx" *ngFor="let btn of item.buttons.split(',')">
+                        <ion-button color="gold" (click)="submit_answer(btn, item)">{{btn}}</ion-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</ion-content>

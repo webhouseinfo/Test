@@ -1,0 +1,208 @@
+
+ion-title{
+    text-align:center;
+}
+ion-toolbar{
+    --background: white;
+
+
+}
+::ng-deep .visible,
+::ng-deep .visible ion-back-button{
+    display: block !important;
+}
+.plusColor{
+    position: absolute;
+    color: #7b7b7b;
+}
+.phoneCode input{
+    padding-left: 15px;
+}
+::ng-deep .phoneCode .mat-form-field-label-wrapper{
+    left: 15px;
+}
+
+
+
+::ng-deep .mat-button[disabled][disabled] {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),0 3px 1px -2px rgba(0, 0, 0, 0.2),0 1px 5px 0 rgba(0, 0, 0, 0.12); 
+    color: #f9f4f3 !important;
+    background: #c28a82 !important;
+    border-radius:3px !important;
+    
+} 
+.labelLogoCenter{
+    color:#6d6d6d;
+}
+
+::ng-deep .alert-message{
+    text-align: left !important; 
+}
+
+::ng-deep .termsStyle{
+    text-decoration: underline;
+    color: rgb(134,21,9);
+}
+::ng-deep .backBtnClass{
+    position:absolute;
+}
+.lower{
+    text-transform: lowercase !important;
+}
+.absBack{    
+    position: absolute;
+    top: 0;
+    background: url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.1;
+    height: 100%;
+    background-size: 110% 110%;
+
+}
+::ng-deep .heightStepper{
+    height:calc(100% - 50px);
+    overflow: auto;
+}
+::ng-deep .CompanyStepper , .FormHeight , .tabHeight, {
+    height: 100%;
+}
+::ng-deep  .tabHeight .mat-tab-body-wrapper{
+    height: 100%;
+}
+
+::ng-deep .mat-button{
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),0 3px 1px -2px rgba(0, 0, 0, 0.2),0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    color: #fff !important;
+    background: rgb(134,21,9) !important;
+    border-radius:3px !important;
+   
+}
+::ng-deep .mat-step-label{
+     white-space: pre-wrap !important;
+    overflow: auto !important;
+}
+.backButton{
+    position: absolute;
+    left: 0;
+}
+.formBottom > ion-button{
+    --margin-bottom:0 !important;
+    --height: 50px !important;
+}
+
+#partner_form ion-button{
+     --height: 50px !important;
+}
+.header-md::after{
+    background-image:none;
+}
+.mat-form-field{
+    width: 100%;
+}
+.phoneCode{
+    width: 35%;
+    margin-right: 3%;
+}
+.phoneNumber{
+    width: 60%;
+}
+.formTop{
+   padding: 10px 20px;
+}
+::ng-deep .mat-radio-button{
+    margin-right: 10px;
+}
+::ng-deep .mat-checkbox{
+    display: block;
+    margin: 15px 0;
+    font-size: 14px;
+}
+::ng-deep .mat-checkbox-label{
+    white-space: normal;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 1.25em;
+    margin-bottom: 10px;
+}
+::ng-deep .button-native{
+    position: absolute;
+    left: 0;
+    
+}
+::ng-deep .mat-tab-label {
+
+    font-size: 16px;
+}
+/*.backimg{
+    background:url("/src/assets/images/left-arrow.svg");
+}*/
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #851700;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background-color: #851700;
+}
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #851700;
+}
+
+::ng-deep  .mat-checkbox-checked.mat-accent .mat-checkbox-background,::ng-deep  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+    background-color: #851700;
+}
+::ng-deep  .example-full-width{
+    margin: 10px 0;
+}
+.address-input{
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.imgBlockParent {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: auto;
+}
+.imgBlock{
+   
+    padding: 10px;
+    
+}
+.logoImgComp{
+    margin: auto;
+    border-radius: 50%;
+}
+.imgDeskParent{
+width: 33.3%;
+}
+.imgDesk{
+    width: 75px !important;
+    height: 75px !important;
+    margin: auto;
+
+}
+
+.acceptError{
+    font-size: 14px;
+}
+
+.imgInner{
+    background: #ccc;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgInner >img{
+    width: 60%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 194px;
+}
+.imgInner >input[type="file"]{
+    display: none;
+}

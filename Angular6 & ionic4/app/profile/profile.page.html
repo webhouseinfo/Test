@@ -1,0 +1,49 @@
+<ion-tabs>
+
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="schedule"  href="/profile/pages/(home:home)">
+            <ion-icon  src="/assets/images/home-icon.svg"></ion-icon>
+        </ion-tab-button>
+    
+        <ion-tab-button  *ngIf="USER && USER.userType == 'customer'"  tab="speakers" href="/profile/pages/(myqr:myqr)">
+            <ion-icon src="/assets/images/qr-icon.svg" ></ion-icon>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="map" *ngIf="USER && (USER.userType == 'customer' || USER.userType == 'partner' )" href="/profile/pages/(notifications:notifications)">
+            <ion-icon src="/assets/images/notifi-icon.svg" ></ion-icon>
+        </ion-tab-button>
+    
+        <ion-tab-button *ngIf="USER && (USER.userType == 'customer' || USER.userType == 'partner')"  tab="about" href="/profile/pages/(account:account)">
+            <ion-icon src="/assets/images/account-icon.svg"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button *ngIf="USER && USER.userType == 'customer' "  tab="about" href="/profile/pages/(invite:invite)">
+            <ion-icon src="/assets/images/invite-icon.svg"></ion-icon>
+        </ion-tab-button>
+
+    </ion-tab-bar>
+
+    <ion-tab *ngIf="USER" icon="home-icon"  href="/profile/pages/(home:home)">
+        <ion-router-outlet (activate)="($event)"  name="home"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab *ngIf="USER && USER.userType == 'customer'"  src="/assets/images/qr-icon.svg" href="/profile/pages/(myqr:myqr)">
+        <ion-router-outlet (activate)="($event)"  name="myqr"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab *ngIf="USER && USER.userType"  src="/assets/images/notifi-icon.svg" href="/profile/pages/(notifications:notifications)">
+        <ion-router-outlet (activate)="($event)"  name="notifications"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab *ngIf="USER && USER.userType"  src="/assets/images/account-icon.svg" href="/profile/pages/(account:account)">
+        <ion-router-outlet (activate)="($event)" name="account"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab *ngIf="USER && (USER.userType == 'customer' || USER.userType == 'agent') " src="/assets/images/invite-icon.svg" href="/profile/pages/(invite:invite)">
+        <ion-router-outlet (activate)="($event)"  name="invite"></ion-router-outlet>
+    </ion-tab>
+    <ion-tab *ngIf="router.url.includes('(other:')">
+        <ion-router-outlet  (activate)="($event)" name="other"></ion-router-outlet>
+    </ion-tab>
+
+</ion-tabs>
+
+
+    
+  

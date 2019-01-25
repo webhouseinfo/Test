@@ -1,0 +1,402 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start" class="visible backBtnClass">
+            <ion-back-button (click)="redirect_to_login()" text="" color="gold"></ion-back-button>
+        </ion-buttons>
+
+        <ion-title>{{ 'sign up' | translate }}</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+        <div class="absBack"></div>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 tabHeight">
+        <mat-tab label="{{ 'customer' | translate }}">
+
+            <form class="example-form" [formGroup]="customer_form" (submit)="save_customer()">
+
+                <div class="formTop">
+                    <!-- Name -->
+                    <mat-form-field>
+                        <input matInput formControlName="name" id="name" placeholder="{{'name' | translate}} *">
+                        <mat-error *ngFor="let validation of customer_validation_messages.name">
+                            <mat-error class="error-message" *ngIf="customer_form.get('name').hasError(validation.type)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+                    <!--Surname -->
+                    <mat-form-field>
+                        <input matInput formControlName="surname" placeholder="{{'surname' | translate}} *">
+                        <mat-error *ngFor='let validation of customer_validation_messages.surname'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('surname').hasError(validation.type)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <!-- Gender -->
+                    <div class="example-full-width">
+                        <mat-radio-group formControlName="gender" class="example-radio-group">
+                            <mat-radio-button [checked]="true" class="example-radio-button"
+                                [value]="'male'">{{'male' | translate}}</mat-radio-button>
+                            <mat-radio-button class="example-radio-button"
+                                [value]="'female'">{{'female' | translate}}</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngFor='let validation of customer_validation_messages.gender'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('gender').hasError(validation.type)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </div>
+
+
+                    <!-- Date -->
+                    <mat-form-field>
+                        <input readonly matInput (focus)="picker.open()" [max]="maxDate" formControlName="date" [matDatepicker]="picker"
+                            placeholder="{{ 'date of birth' | translate }}">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+
+                        <mat-error *ngFor='let validation of customer_validation_messages.date'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('date').hasError(validation.type)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+                    <!-- Land -->
+
+                    <mat-form-field>
+                        <mat-select placeholder="{{ 'country' | translate }}" formControlName="land" matNativeControl>
+                            <mat-option *ngFor="let item of COUNTRIES[current_lang]" value="{{item[current_lang + 'Country']}}">{{item[current_lang
+                                + 'Country' ]}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngFor='let validation of customer_validation_messages.land'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('land').hasError(validation.type)">
+                                {{ validation.message }}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <!-- Address -->
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="address" matInput placeholder="{{ 'address' | translate }}">
+
+                        <mat-error *ngFor='let validation of customer_validation_messages.address'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('address').hasError(validation.type)">
+                                {{ validation.message }}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <!-- Phone Code -->
+                    <mat-form-field class="example-full-width phoneCode">
+                        <span class="plusColor">+</span><input formControlName="phone_code" matInput placeholder="{{ 'telephone code' | translate }}">
+
+                        <mat-error *ngFor='let validation of customer_validation_messages.phone_code'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('phone_code').hasError(validation.type)">
+                                {{ validation.message }}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <!-- Phone Number -->
+                    <mat-form-field class="example-full-width phoneNumber">
+                        <input formControlName="phone_number" matInput placeholder="{{ 'telephone' | translate }}">
+
+                        <mat-error *ngFor='let validation of customer_validation_messages.phone_number'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('phone_number').hasError(validation.type)">
+                                {{ validation.message }}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <!-- Email -->
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="email" class="lower"  matInput placeholder="{{ 'email' | translate }} *">
+
+                        <mat-error *ngFor='let validation of customer_validation_messages.email'>
+                            <mat-error class="error-message" *ngIf="customer_form.get('email').hasError(validation.type)">
+                                {{ validation.message }}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <!-- Has Card -->
+                    <mat-checkbox (change)="has_card_toggle($event)" value="true" formControlName="has_card">{{ 'card presence' |
+                        translate }}</mat-checkbox>
+
+                    <div *ngIf="customer_form.get('has_card').value">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="{{ 'card number' | translate }}" formControlName="card_number">
+
+                            <mat-error *ngFor='let validation of customer_validation_messages.card_number'>
+                                <mat-error class="error-message" *ngIf="has_card">
+                                    {{ 'error' }}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+
+
+                    <!-- Invite Code -->
+                    <mat-checkbox formControlName="is_invited">{{ 'invite code' | translate }}</mat-checkbox>
+
+                    <div *ngIf="customer_form.get('is_invited').value">
+                        <mat-form-field class="example-full-width">
+                            <input type="number" formControlName="invite_code" matInput placeholder="{{ 'enter code' | translate }}">
+
+                            <mat-error *ngFor='let validation of customer_validation_messages.invite_code'>
+                                <mat-error class="error-message" *ngIf="customer_form.get('invite_code').hasError(validation.type)">
+                                    {{ validation.message }}
+                                </mat-error>
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+
+                    <mat-checkbox formControlName="terms">{{ 'I accept terms row 1' | translate }}<br>
+                        <span (click)="show_terms()" innerHTML="{{ 'I accept terms row 2' | translate }}"></span></mat-checkbox>
+
+                </div>
+                <div class="formBottom">
+
+                    <ion-button (click)="save_customer()" [disabled]="customer_form.invalid" expand="full" color="gold"
+                        class="clientReg"><span>{{ 'sign up' | translate }}</span></ion-button>
+                </div>
+            </form>
+
+        </mat-tab>
+
+        <mat-tab label="{{ 'partner' | translate }}">
+                <div class="absBack"></div>
+            <form id='partner_form' class="FormHeight" enctype="multipart/form-data">
+                <div class="CompanyStepper">
+                    <mat-vertical-stepper [linear]="true" #stepper class="heightStepper">
+
+                        <!-- [completed]="false" -->
+                        <mat-step [formGroup]="step_1">
+                            <ng-template matStepLabel>
+                                {{ 'step 1 row 1' | translate }}
+                            </ng-template>
+
+                            <!-- Name -->
+                            <mat-form-field>
+                                <input formControlName="name" matInput placeholder="{{ 'company name' | translate }}"
+                                    required>
+                                <mat-error *ngFor="let validation of step_1_validation_messages.name">
+                                    <mat-error class="error-message" *ngIf="step_1.get('name').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- HVHH -->
+                            <mat-form-field>
+                                <input formControlName="hvhh" matInput placeholder="{{ 'TIN' | translate }}">
+                                <mat-error *ngFor="let validation of step_1_validation_messages.hvhh">
+                                    <mat-error class="error-message" *ngIf="step_1.get('hvhh').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Branch -->
+                            <mat-form-field>
+                                <mat-select matNativeControl multiple formControlName="type" placeholder="{{ 'company type' | translate }}"
+                                    required>
+                                    <mat-option  *ngFor="let item of AREAS" value="{{item['id']}}">{{item[current_lang
+                                        + 'Name']}}</mat-option>
+                                </mat-select>
+
+                                <mat-error *ngFor="let validation of step_1_validation_messages.type">
+                                    <mat-error class="error-message" *ngIf="step_1.get('type').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+
+
+
+
+                            <!-- Legal address -->
+                            <mat-form-field>
+                                <input formControlName="law_address" matInput placeholder="{{ 'legal address' | translate }}">
+
+                                <mat-error *ngFor="let validation of step_1_validation_messages.law_address">
+                                    <mat-error class="error-message" *ngIf="step_1.get('law_address').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div>
+
+                                <button mat-button [disabled]="step_1.invalid" matStepperNext>{{ 'continue' | translate
+                                    }}</button>
+                            </div>
+                        </mat-step>
+
+                        <mat-step [formGroup]="step_2">
+                            <ng-template matStepLabel>
+                                {{ 'step 1 row 2' | translate }}
+                            </ng-template>
+
+                            <!-- Email -->
+                            <mat-form-field>
+                                <input oninput="this.value = this.value.toLowerCase()" matInput class="lower" placeholder="{{ 'email' | translate }}" formControlName="email" required>
+
+                                <mat-error *ngFor="let validation of step_2_validation_messages.email">
+                                    <mat-error class="error-message" *ngIf="step_2.get('email').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+
+                            </mat-form-field>
+
+                            <!-- Phone Code -->
+                            <mat-form-field class="example-full-width phoneCode">
+                                    <span class="plusColor">+</span><input matInput placeholder="{{ 'telephone code' | translate }}" formControlName="phone_code">
+
+                                <mat-error *ngFor="let validation of step_2_validation_messages.phone_code">
+                                    <mat-error class="error-message" *ngIf="step_2.get('phone_code').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+                            <!-- Phone Number -->
+                            <mat-form-field class="example-full-width phoneNumber">
+                                <input matInput formControlName="phone_number" placeholder="{{ 'telephone' | translate }}">
+
+                                <mat-error *ngFor="let validation of step_2_validation_messages.phone_number">
+                                    <mat-error class="error-message" *ngIf="step_2.get('phone_number').hasError(validation.type)">
+                                        {{ validation.message }}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div class="address-items-wrapper" formArrayName="addresses">
+
+                                <div class="form-group">
+                                    <mat-form-field class="example-form-field">
+                                        <input matInput placeholder="{{ 'work address' | translate }}" autocorrect="off"
+                                            autocapitalize="off" spellcheck="off" type="text" class="form-control"
+                                            #search [formControl]="searchControl">
+
+                                    </mat-form-field>
+                                </div>
+
+                                <div *ngFor="let item of step_2_addresses(); let i=index">
+                                    <mat-form-field class="example-form-field" [formGroupName]="i">
+
+                                        <input matInput type="text" readonly class="address-input" formControlName="address"
+                                            placeholder="Address">
+
+                                        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="remove_address_field(i)">
+                                            <ion-icon name="close"></ion-icon>
+                                        </button>
+
+                                    </mat-form-field>
+
+                                </div>
+
+
+                            </div>
+
+                            <div>
+                                <button [disabled]='step_2.invalid' mat-button matStepperNext>{{ 'continue' | translate
+                                    }}</button>
+                            </div>
+
+
+                        </mat-step>
+
+                        <mat-step [formGroup]="step_3">
+
+                            <ng-template matStepLabel>
+                                {{ 'step 1 row 3' | translate }}
+                            </ng-template>
+
+                            <mat-form-field class="example-full-width">
+                                <textarea matInput placeholder="{{ 'description' | translate }}" formControlName="description" required></textarea>
+                            </mat-form-field>
+
+
+
+                            <div class="example-full-width">
+                                <label for="" class="labelLogoCenter">{{ 'logo' | translate }}</label>
+                                <div class="imgBlock">
+                                    <div class="imgInner logoImgComp">
+                                        <img src="/assets/images/download.svg" (click)="$event.target.nextSibling.click()">
+                                        <input type="file" name="logo" (change)="fileChange($event)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="example-full-width">
+                                <div class="imgBlockParent">
+                                    <div class="imgBlock imgDeskParent" *ngFor="let item of [0,0,0,0,0,0]; let i = index">
+                                        <div class="imgInner imgDesk">
+                                            <img src="/assets/images/download.svg" (click)="$event.target.nextSibling.click()">
+                                            <input type="file" name='image_{{i + 1}}' (change)="fileChange($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <mat-checkbox formControlName="terms" class="acceptTextFont">{{ 'I accept terms row 1' | translate }}<br>
+                                <span (click)="show_terms()" innerHTML="{{ 'I accept terms row 2' | translate }}"></span></mat-checkbox>
+                            
+
+                        </mat-step>
+                        <ng-template matStepperIcon="edit">
+                            <ion-icon name="create"></ion-icon>
+                        </ng-template>
+
+                        <ng-template matStepperIcon="done">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </ng-template>
+
+                    </mat-vertical-stepper>
+
+                    <div class="formBottom">
+                    <ion-button no-margin (click)="save_partner()" [disabled]="step_1.invalid || step_2.invalid || step_3.invalid"
+                        expand="full" color="gold" class="clientReg"><span>{{ 'sign up' | translate }}</span></ion-button>
+                        </div>
+                </div>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+
+
+</ion-content>

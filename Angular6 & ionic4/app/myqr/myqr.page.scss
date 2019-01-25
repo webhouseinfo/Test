@@ -1,0 +1,52 @@
+.shtrixCode{
+       
+        border-bottom: 1px solid #eaeaea;
+}
+.widthText {
+    width: 80%;
+    margin: 10px auto;
+}
+.QrPassword_parent{
+    color:#891e06;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.QrPassword{
+    margin: 10px auto;
+}
+.QRCode{
+    width: 50%;
+        border-bottom: 1px solid #eaeaea;
+}
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+::ng-deep ion-toolbar{
+    --background:white !important;
+}
+::ng-deep ion-title {
+    text-align: center;
+    color: rgb(134,21,9) !important;
+    font-size:16px;
+}
+::ng-deep .imgabs{
+    position: absolute;
+    width: 40px;
+    left: 15px;
+    z-index:99;
+}
+.absBack{    
+    position: absolute;
+    top: 0;
+    background: url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.1;
+    height: 100%;
+    background-size: 110% 110%;
+
+}

@@ -1,0 +1,26 @@
+ion-icon {
+        &[class*="home-icon"] {
+          mask-image: url(/assets/images/home-icon.svg);
+        };
+        &[class*="qr-icon"] {
+          mask-image: url(/assets/images/qr-icon.svg);
+        };
+        
+        &[class*="notifi-icon"] {
+          mask-image: url(/src/assets/images/notifi-icon.svg);
+        };
+        &[class*="account-icon"] {
+          mask-image: url(/svg/md-account-icon.svg);
+         
+        };
+        &[class*="invite-icon"] {
+          mask-image: url(/assets/images/invite-icon.svg);
+        };
+       
+
+        
+     
+      }
+      
+
+

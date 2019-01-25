@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-toolbar *ngIf="ACTIVE_FORM == 'FORGOT_PASSWORD'">
+        <ion-buttons slot="start">
+                <!-- text="{{ 'back' | translate }}" -->
+            <ion-back-button  class="changePassdHeader" color="gold" text="" defaultHref="/login" (click)="ACTIVE_FORM = 'LOGIN' "></ion-back-button>
+          </ion-buttons>
+        <ion-title style="font-size: 100%;">{{ 'change password' | translate }}</ion-title>
+    </ion-toolbar>
+
+
+
+
+    <ion-toolbar *ngIf="ACTIVE_FORM == 'LOGIN'">
+        <ion-title>{{ 'login' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<div class="absBack"></div>
+<div class="">
+    <div class="loginContent">
+        <div class="logoImg">
+            <img src="/assets/images/logo.svg" alt="">
+        </div>
+
+
+
+        <div class="formParent" *ngIf="ACTIVE_FORM == 'FORGOT_PASSWORD' ">
+
+        
+            <mat-form-field class="example-full-width">
+                <input matInput #remind_email on-focus="closeFooter()" on-focusout="openFooter()" placeholder="{{ 'email' | translate }} ">
+                <mat-error *ngFor="let validation of login_validation_messages.login">
+                    <mat-error class="error-message" *ngIf="login_form.get('login').hasError(validation.type)">
+                        {{ validation.message }}
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="btnBlock">
+                <div>
+                    <ion-button [disabled]="!remind_email.value.length" (click)="check_forgotten_email(remind_email.value)" expand="block" color="gold"><span>{{ 'confirm' | translate }}</span></ion-button>
+                </div>
+            </div>
+
+            <div *ngIf="FORGOTTEN_BRANCHES.length">
+
+                <mat-form-field>
+                    <mat-select placeholder="{{ 'branches' | translate }}" #selected_forgotten_branches multiple>
+                        <mat-option *ngFor="let item of FORGOTTEN_BRANCHES" [value]="item.id">{{item.address}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <ion-button [disabled]="!selected_forgotten_branches.value" (click)="send_email_to_branches(selected_forgotten_branches.value)" expand="block" color="gold"><span>{{ 'confirm' | translate }}</span></ion-button>
+
+            </div>
+        </div>
+        
+        <div class="formParent" *ngIf="ACTIVE_FORM == 'LOGIN'">
+
+
+            <div class="cart-tooltip">
+                <span class="cart-tooltip__inside">
+                  <div class="cart-tooltip__inside-box--text2">{{ 'example Phone' | translate }}</div>
+                </span>
+              </div>
+
+              
+            <form [formGroup]="login_form" class="example-form">
+               
+                <mat-form-field class="example-full-width">
+                       
+                    <input formControlName="login" oninput="this.value = this.value.toLowerCase()" class="lower" matInput placeholder="{{ 'email or phone' | translate }}">
+                    
+                    <mat-error *ngFor="let validation of login_validation_messages.login">
+                        <mat-error class="error-message" *ngIf="login_form.get('login').hasError(validation.type)">
+                            {{ validation.message }}
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input type="password" formControlName="password" matInput placeholder="{{ 'password' | translate }}">
+                    <mat-error *ngFor="let validation of login_validation_messages.password">
+                        <mat-error class="error-message" *ngIf="login_form.get('password').hasError(validation.type)">
+                            {{ validation.message }}
+                        </mat-error>
+                    </mat-error>
+                </mat-form-field>
+                <p class="changePas" (click)="ACTIVE_FORM = 'FORGOT_PASSWORD' ">{{ 'forgot password' | translate }}</p>
+                <div class="btnBlock">
+                    <div>
+                        <ion-button  [disabled]="login_form.invalid" (click)="login_submit()" expand="block" color="gold"><span>{{ 'login' | translate }}</span></ion-button>
+                    </div>
+                    
+                    <div>
+                        <ion-button fill="clear" color="gold" href (click)="to_signup_page()">{{ 'sign up' | translate }}</ion-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="footer" id="hideFooter"  (click)="fb_login()">
+    <div class="footerText" >{{ 'login with social' | translate }}</div>
+    <div class="footerImg">
+        <img src="/assets/images/facebook.svg">
+    </div>
+</div>

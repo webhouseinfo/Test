@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-menu-toggle>
+          <img src="/assets/images/menu-toggle.svg" class="imgabs">
+      </ion-menu-toggle>
+    <ion-title>
+      <span *ngIf="category">{{ category[CURRENT_LANG + 'Name'] }}</span>
+     
+    </ion-title>
+    <ion-icon name="pin" color="gold" (click)="order_companies()" [ngClass]="{ 'not-active' : my_pos.lat <= 0, 'right' : true }"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+        <div class="absBack"></div>
+<!-- Before load  (ed) -->
+<div *ngIf="companies == null" class="spinner">
+        <ion-spinner name="dots" color="gold"></ion-spinner>
+</div>
+
+<!-- After load (ed) -->
+<div *ngIf="companies && companies.length">
+  <div class="productItem" (click)="redirect_to_user(item)" *ngFor="let item of companies; let i = index">
+      <span class="sale">{{ 'sale' | translate }} {{item.discount}} %</span>
+      <span class="distance" *ngIf="item.address.distance > 0">{{ 'distance' | translate }} {{item.address.distance}} {{ 'km' | translate }}</span>
+      <div class="productItemInner">
+          <div class="imgBlock">
+              <img class='rounded' src="{{ HOST + '/uploads/' + item.logo }}" alt="">
+          </div>
+          <div class="gago"><input type="hidden"  class="home" value="" /></div>
+          <div class="textBlock">
+              <div class="textTop">{{ item.armName }}</div>
+              <div class="textButton">{{item.address.address}}</div>
+          </div>
+
+          <div class="row rateParent">
+                <fieldset class="rate untouchable">
+                    <input [checked]="item.rating == 5" id="rate-{{ i }}-star5" type="radio" name="rate-{{ i }}-star55" value="5" />
+                    <label for="rate-{{ i }}-star5" title="Excellent">5</label>
+
+                    <input [checked]="item.rating == 4" id="rate-{{ i }}-star4" type="radio" name="rate-{{ i }}-star44" value="4" />
+                    <label for="rate-{{ i }}-star4" title="Good">4</label>
+
+                    <input [checked]="item.rating == 3" id="rate-{{ i }}-star3" type="radio" name="rate-{{ i }}-star33" value="3" />
+                    <label for="rate-{{ i }}-star3" title="Satisfactory">3</label>
+
+                    <input [checked]="item.rating == 2" id="rate-{{ i }}-star2" type="radio" name="rate-{{ i }}-star22" value="2" />
+                    <label for="rate-{{ i }}-star2" title="Bad">2</label>
+
+                    <input [checked]="item.rating == 1" id="rate-{{ i }}-star1" type="radio" name="rate-{{ i }}-star11" value="1" />
+                    <label for="rate-{{ i }}-star1" title="Very bad">1</label>
+                </fieldset>
+                <span>({{item.comments_count}})</span>
+            </div>
+      </div>
+  </div>
+</div>
+
+</ion-content>

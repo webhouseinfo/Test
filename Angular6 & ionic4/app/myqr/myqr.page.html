@@ -1,0 +1,37 @@
+<ion-header>
+    
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'my qr' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header> 
+
+
+<div *ngIf="!CARD" class="spinner">
+        <ion-spinner name="dots" color="gold"></ion-spinner>
+</div>
+
+<ion-content padding text-center *ngIf="CARD">
+        <div class="absBack"></div>
+    <mat-card padding>
+        <!-- *ngIf="CARD" -->
+        <div >
+             <div>
+                <img src="/assets/images/shtrix.gif" class="shtrixCode">
+            </div>
+            <p class="widthText"> {{ 'use qr for transaction' | translate }} </p>
+            <div>
+                
+                <img  [src]=" QR_IMAGE_SRC " class="QRCode">
+            </div>
+
+            <p *ngIf="CARD" class="QrPassword_parent">{{ 'qr password' | translate }} {{ CARD.password }}</p>
+            <p class="QrPassword"> {{ 'use password for invite' | translate }} </p>
+        </div>
+
+        
+
+    </mat-card>
+</ion-content>

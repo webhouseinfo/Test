@@ -1,0 +1,52 @@
+<ion-split-pane>
+    <ion-menu contentId="content1" *ngIf="USER">
+
+
+        <img class="menuLogo" src="/assets/images/logo.svg" />
+
+
+
+        <ion-content >
+            <mat-list >
+
+                <mat-list>
+                    <mat-list-item *ngIf="USER.userType != 'partner' " [ngClass]="{'active': router.url == '/profile/pages/(other:news)'}">
+                        <ion-button (click)="close_menu()" color="dark" fill="clear" class="a_hover" href="/profile/pages/(other:news)">
+                            <ion-icon slot="start" name="paper"></ion-icon>{{ 'news.plural' | translate }} 
+                        </ion-button>
+                    </mat-list-item>
+
+                    <mat-list-item [ngClass]="{'active': router.url == '/profile/pages/(other:about)'}">
+                        <ion-button (click)="close_menu()" color="dark" fill="clear" class="a_hover" href="/profile/pages/(other:about)">
+                            <ion-icon slot="start" name="people"></ion-icon>{{ 'about us' | translate }}
+                        </ion-button>
+                    </mat-list-item>
+
+                    <mat-list-item [ngClass]="{'active': router.url == '/profile/pages/(other:contact)'}">
+                        <ion-button (click)="close_menu()" color="dark" fill="clear" class="a_hover" href="/profile/pages/(other:contact)">
+                            <ion-icon slot="start" name="md-paper-plane"></ion-icon>{{ 'contact' | translate }}</ion-button>
+                    </mat-list-item>
+
+                    <mat-list-item [ngClass]="{'active': router.url == '/profile/pages/(other:terms)'}">
+                        <ion-button (click)="close_menu()" color="dark" fill="clear" class="a_hover" href="/profile/pages/(other:terms)">
+                            <ion-icon slot="start" name="create"></ion-icon>{{ 'terms' | translate }}</ion-button>
+                    </mat-list-item>
+
+                    <mat-list-item [ngClass]="{'active': router.url == '/profile/pages/(other:settings)'}">
+                        <ion-button (click)="close_menu()" color="dark" fill="clear" class="a_hover" href="/profile/pages/(other:settings)">
+                            <ion-icon slot="start" name="ios-settings"></ion-icon>{{ 'settings' | translate }}</ion-button>
+                    </mat-list-item>
+
+                    <mat-list-item class="logout_border">
+                        <ion-button (click)="logout()" color="dark" fill="clear" href="#">
+                            <ion-icon slot="start" name="ios-log-out"></ion-icon>{{ 'exit' | translate }}</ion-button>
+                    </mat-list-item>
+
+                </mat-list>
+
+            </mat-list>
+        </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet main id="content1"></ion-router-outlet>
+</ion-split-pane>

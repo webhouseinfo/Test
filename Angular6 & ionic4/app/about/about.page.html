@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        <ion-title>{{ 'about us' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<div class="absBack"></div>
+<ion-content padding>
+    <div class="contentCenter">
+        <div *ngIf="!DATA" class="spinner">
+                <ion-spinner name="dots"  style="margin:auto;" color="gold"></ion-spinner>
+        </div>
+
+        <div *ngIf="DATA">
+            <div class="content">
+                <p [innerHTML]="DATA.about_text[CURRENT_LANG + 'Text']"></p>
+            </div>
+        </div>
+    </div>
+</ion-content>

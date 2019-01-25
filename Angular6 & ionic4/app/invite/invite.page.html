@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-menu-toggle>
+            <img src="/assets/images/menu-toggle.svg" class="imgabs">
+        </ion-menu-toggle>
+        
+            <ion-title>{{ 'invite friend' | translate }}</ion-title>
+       
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+       
+    <form class="firstForm" *ngIf="!INVIDED_USER.email">
+        <div class="absBack"></div>
+        <mat-form-field class="example-full-width onlyinvite">
+            <input oninput="this.value = this.value.toLowerCase()" matInput placeholder="{{ 'email' | translate }}" #email>
+        </mat-form-field>
+
+        <div class="btnBlock settingsPage">
+            <div>
+                <ion-button color="gold" [disabled]="!email.value.length || !GLOBALS.validate_email(email.value)" (click)="submit_email(email.value)">{{'confirm' | translate}}</ion-button>
+            </div>
+        </div>
+        <p class="margin_top">{{ 'invite row 1' | translate }}</p>
+
+        <hr>
+    </form>
+
+    <hr>
+
+    <form class="secondForm" *ngIf="INVIDED_USER.email">
+        <p class="margin_top">{{ 'invite row 2' | translate }}</p>
+        <mat-radio-group class="example-radio-group" [(ngModel)]="INVIDED_USER.type" name='type'>
+            <mat-radio-button value="once" class="colorTxt">{{ 'once' | translate }}</mat-radio-button>
+            <ion-input readonly class="colorInput" placeholder="{{ PAGE.invite_money }} դր"></ion-input>
+            <mat-radio-button value="multiple" class="colorTxt">{{ 'for each transaction' | translate }}</mat-radio-button>
+            <ion-input readonly class="colorInput" placeholder="0.01% - 10%"></ion-input>
+        </mat-radio-group>
+
+        <div class="btnBlock settingsPage">
+            <div class="twoButton">
+                <ion-button color="gold" (click)="flush_invitation()">{{ 'cancel' | translate }}</ion-button>
+            </div>
+            <div class="twoButton">
+                <ion-button color="gold" (click)="submit_invitation()">{{'confirm' | translate}}</ion-button>
+            </div>
+        </div>
+    </form>
+
+</ion-content>

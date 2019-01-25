@@ -1,0 +1,60 @@
+agm-map {
+    height: 300px;
+  }
+
+#map{
+    height: 100vh !important;
+    z-index: 1 !important;
+}
+
+::ng-deep .visible,
+::ng-deep .visible ion-back-button{
+    display: block !important;
+}
+.whmap[disabled]{
+    position: absolute;
+    z-index: 99999999;
+    bottom: 80px;
+    right: 0;
+    margin: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    border-radius: 2px;
+    background: url("../../assets/icon/mapdisable.png");
+    background-size: 80% 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    background-color: white;
+    width: 40px;
+    display: inline-block;
+}
+.whmap{
+    position: absolute;
+    z-index: 99999999;
+    bottom: 80px;
+    right: 0;
+    margin: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    border-radius: 2px;
+    background: url("../../assets/icon/mapdir.png");
+    background-size: 80% 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 40px;
+    background-color: white;
+    width: 40px;
+    display: inline-block;
+}
+::ng-deep .backBtnClass{
+    position:absolute;
+}
+.logoBlock {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    align-items: center;
+}
+.logoBlock img{
+    width:35% !important; 
+    max-width: 105px !important;  
+}

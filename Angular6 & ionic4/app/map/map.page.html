@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start" class="visible backBtnClass">
+          <ion-back-button (click)="redirect_back()" text="" color="gold"></ion-back-button>
+      </ion-buttons>
+     
+      <ion-title>
+          <div class="logoBlock"><img src="/assets/images/logo.svg"></div>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<button (click)="navigation()" disabled data-lat ="0" data-lng = "0" class="whmap"></button>
+
+  <div id="map" #map>
+
+  
+  </div>
+</ion-content>

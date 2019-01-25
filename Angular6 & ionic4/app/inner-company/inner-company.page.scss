@@ -1,0 +1,309 @@
+.untouchable{
+    pointer-events:none !important
+}
+.sliderImg img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-width: 100% !important;
+    max-height: none !important;
+}
+.mat-card-header-text{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color:#861608;
+}
+::ng-deep ion-toolbar{
+    --background:white !important;
+}
+::ng-deep .swiper-pagination-bullet-active {
+    background: #861608;
+}
+
+.headeLog{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    right: 15px;
+    z-index: 50;
+    transform: translateY(-50%);
+}
+
+.headeLog img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50%;
+}
+::ng-deep ion-title {
+    text-align: center;
+    color: rgb(134,21,9) !important;
+    font-size:16px;
+}
+::ng-deep .imgabs{
+    position: absolute;
+    width: 40px;
+    left: 15px;
+    z-index:99;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.MatHeader{
+     margin-top: -30px;
+    z-index: 999999999;
+    position: relative;
+    padding-bottom: 1px;
+}
+.MatHeaderSecond{
+     padding-top: 1px;
+}
+.onlyForInnerSecond{
+       border-radius: 0px 0px 8px 8px !important;
+}
+::ng-deep .swiper-pagination{
+        bottom: 12% !important;
+}
+.onlyForInner{
+        border-radius: 8px 8px 0px 0px !important;
+}
+.absBack{    
+    position: absolute;
+    top: 0;
+    background: url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.1;
+    height: 100%;
+    background-size: 90% 90%;
+
+}
+.sliderImg img{
+    transition-duration: unset !important;
+    transform: none !important;
+}
+::ng-deep .visible,
+::ng-deep .visible ion-back-button{
+    display: block !important;
+    
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+::ng-deep .slider_bullet .swiper-pagination-bullet {
+    background: #d9d9d9;
+    opacity: 1;
+    width: 10px !important;
+    height: 10px !important;
+}
+// .slider_bullet{
+//     height: 200px !important;
+// }
+.swiper-container{
+    height: auto !important;
+}
+.img_inner_slide{
+    height: 100% !important;
+    object-fit: contain !important;
+}
+.slideHeight{
+    height:100%;
+}
+::ng-deep .onlyForInner .mat-card-header-text{
+    color:#861608 !important;
+    display:block !important;
+    width:100% !important;
+    text-align: center;
+}
+
+
+.addressFirst p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+.addressBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ion_title{
+    width: 70%;
+    margin: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.addressFirst{
+    width: 70%;
+    color:#861608;
+}
+.addressSecond{
+    width: 30%;
+    text-align: center;
+    color:#861608;
+}
+.addressThird{
+        width: 10%;
+}
+
+.addressThird ion-icon{
+    width: 100%;
+    height: 45px;
+}
+.text{
+    color: #666;
+    font-size: 14px;
+    line-height: 21px;
+}
+    
+    
+.middleLine{
+     background: #DADADA;
+    margin: 10px 0 10px 0px;
+}
+@import url("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
+
+.rate {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.butonBlock{
+    display: flex;
+    justify-content: space-around;
+}
+.rate input {
+    display: none;
+}
+
+.rate label {
+    float: right;
+    font-size: 0;
+    color: #d9d9d9;
+}
+
+ .rate label{
+    margin-right: 5px;
+}
+.comentTop .rate{
+    vertical-align: middle;
+}
+.comentTop .rateParent span{
+    display: inline-block;
+    color: #861608;
+    vertical-align: middle;
+}
+.rate label:before {
+    content: "\f005";
+    font-family: FontAwesome;
+    font-size: 20px;
+}
+
+.rate label:hover,
+.rate label:hover~label {
+    color: #fcd000;
+    transition: 0.2s;
+}
+
+.rate input:checked~label {
+    color: #fcd000;
+}
+
+.rate input:checked~label:hover,
+.rate input:checked~label:hover~label {
+    color: #fcd000;
+    transition: 0.2s;
+}
+
+
+/* Half-star*/
+.innerCompany{
+    max-width: 500px;
+    margin: auto;
+    width: 100%;
+}
+.rate .star-half {
+    position: relative;
+}
+
+.rate .star-half:before {
+    position: absolute;
+    content: "\f089";
+    padding-right: 0;
+}
+.comentTop{
+    text-align: center;
+}
+.title{
+    color: #4D4D4D;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.textareaDiv{
+    width: 100%;
+    
+    margin: 20px 0;
+}
+.textareaDiv textarea{
+    width: 100%;
+    height: 120px;
+    border: 1px solid #e6e6e6;
+    padding: 8px 0 0 5px;
+    -ms-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #666;
+}
+.topBlock {
+    display: flex;
+    justify-content: space-between;
+}
+.bottomBlock {
+    font-size: 14px;
+    list-style: 21px;
+    color: #666;
+}
+ion-button{
+    --border-radius:10px;
+}
+.date{
+    font-size: 12px;
+    font-weight: bold;
+}
+.comentBottom{
+    margin-top: 20px;
+    color: #666;
+}
+.comentItem{
+    margin-bottom: 15px;
+    padding: 15px;
+    -ms-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 10px;
+}
+
+.comentItem .rate label:before {
+    font-size: 14px;
+}
+.bottomBlock p{
+    margin: 7px 0;
+}

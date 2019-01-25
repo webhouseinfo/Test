@@ -1,0 +1,102 @@
+
+// ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline{
+//     background-color: white !important;
+// }
+::ng-deep .colorLang{
+    color:rgb(134,21,9) !important;
+
+}
+
+::ng-deep .alert-radio-inner.sc-ion-alert-md{
+    background-color:rgb(134,21,9) !important;
+}
+
+::ng-deep [aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
+    border-color: rgb(134,21,9) !important;
+}
+::ng-deep .alert-button.sc-ion-alert-md {
+
+    color: rgb(134,21,9) !important;
+}
+::ng-deep .textCenter{
+    text-align:center;
+    color: rgb(134,21,9) !important;
+}
+::ng-deep  .highlight_red{
+    --highlight-color-focused:rgb(134,21,9) !important;
+}
+
+::ng-deep [aria-checked=true].sc-ion-alert-ios .alert-radio-inner.sc-ion-alert-ios{
+    border-color: rgb(134,21,9) !important;
+}
+::ng-deep [aria-checked=true].sc-ion-alert-ios .alert-radio-label.sc-ion-alert-ios{
+    color: rgb(134,21,9) !important;
+}
+::ng-deep .alert-button.sc-ion-alert-ios{
+    color: rgb(134,21,9) !important;
+}
+
+
+::ng-deep .spanWidth{
+    width:100%;
+}
+::ng-deep  .onlyDate{
+        border: none;
+        width: 35%;
+        text-align: right;
+}
+
+::ng-deep .txtright{
+    text-align: right;
+}
+::ng-deep .settingsPage{
+    text-align: center;
+    margin-top:20px;
+}
+::ng-deep ion-toolbar{
+    --background:white !important;
+}
+::ng-deep ion-title {
+      text-align: center;
+      color: rgb(134,21,9) !important;
+      font-size:16px;
+}
+::ng-deep .imgabs{
+    position: absolute;
+    width: 40px;
+    left: 15px;
+    z-index:99;
+}
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+
+::ng-deep .allbackground{
+    background: url(/src/assets/images/settings-background.svg);
+    background-size: cover;
+    width: 100%;
+    background-repeat: round;
+    height: 100%;
+    position: absolute;
+    z-index: -5;
+}
+form{
+        z-index: 9;
+    position: relative;
+}
+.absBack{    
+    position: absolute;
+    top: 0;
+    background: url(/assets/icon/vilmar_background.svg);
+    border: 0;
+    width: 100%;
+    opacity: 0.1;
+    height: 100%;
+    background-size: 110% 110%;
+
+}
